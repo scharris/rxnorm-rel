@@ -1,0 +1,4708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4-alpha1" use-changelog="false" last-position="0,0" last-zoom="0.5" max-obj-count="182"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer,Views,Schemas"
+	 active-layers="0"
+	 layer-name-colors="#000000,#000000,#000000"
+	 layer-rect-colors="#b4b4b4,#7d4447,#1b76f1"
+	 show-layer-names="false" show-layer-rects="false">
+<role name="drugs"
+ inherit="true"
+ login="true"
+ encrypted="true"
+ password="********">
+</role>
+
+<role name="rxnorm"
+ inherit="true"
+ login="true"
+ encrypted="true"
+ password="********">
+</role>
+
+<database name="rxnorm" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8" is-template="false" allow-conns="true">
+	<role name="rxnorm"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="rxnr" layers="2" rect-visible="true" fill-color="#f8303d">
+	<role name="rxnorm"/>
+</schema>
+
+<schema name="rxno" layers="2" rect-visible="true" fill-color="#2ae4b6">
+	<role name="rxnorm"/>
+</schema>
+
+<table name="in" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="3340" y="1380"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<constraint name="in_pkey" type="pk-constr" table="rxnr.&quot;in&quot;">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="in_name_key" type="uq-constr" table="rxnr.&quot;in&quot;">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="pin" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="3060" y="1580"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="in_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<constraint name="pin_pkey" type="pk-constr" table="rxnr.pin">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="pin_name_key" type="uq-constr" table="rxnr.pin">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_pin_in" table="rxnr.pin"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="in_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="ingrset" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2800" y="440"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="tty" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<constraint name="ingrset_pkey" type="pk-constr" table="rxnr.ingrset">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="ingrset_name_key" type="uq-constr" table="rxnr.ingrset">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="df" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1140" y="540"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="origin">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="code">
+		<type name="character varying" length="500"/>
+	</column>
+	<constraint name="df_pkey" type="pk-constr" table="rxnr.df">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="dfg" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1140" y="180"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<constraint name="dfg_pkey" type="pk-constr" table="rxnr.dfg">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="df_dfg" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1220" y="380"/>
+	<column name="df_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="dfg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_dfdfg_cui" type="pk-constr" table="rxnr.df_dfg">
+		<columns names="df_rxcui,dfg_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_dfdfg_dfg" table="rxnr.df_dfg"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="dfg_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="scdf" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1580" y="620"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="df_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="scdf_pkey" type="pk-constr" table="rxnr.scdf">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="scdf_name_key" type="uq-constr" table="rxnr.scdf">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scdf_df" table="rxnr.scdf"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="df_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="scd" layers="0" collapse-mode="1" max-obj-count="18" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1700" y="880"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="prescribable_name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="rxterm_form">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="df_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scdf_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="ingrset_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="available_strengths">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="qual_distinct">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="quantity">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="human_drug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="vet_drug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="unquantified_form_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="scd_pkey" type="pk-constr" table="rxnr.scd">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="scd_rxaui_key" type="uq-constr" table="rxnr.scd">
+		<columns names="rxaui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scd_df" table="rxnr.scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="df_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_scd_scdf" table="rxnr.scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scdf_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_scd_ingrset" table="rxnr.scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="ingrset_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_scd_uqform" table="rxnr.scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="unquantified_form_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="bn" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<comment><![CDATA[brand name]]></comment>
+	<position x="820" y="340"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="rxn_cardinality">
+		<type name="character varying" length="6"/>
+	</column>
+	<column name="reformulated_to_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="bn_pkey" type="pk-constr" table="rxnr.bn">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="bn_name_key" type="uq-constr" table="rxnr.bn">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_bn_reformbn" table="rxnr.bn"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="reformulated_to_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="sbdf" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="580" y="620"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="bn_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="df_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scdf_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="sbdf_pkey" type="pk-constr" table="rxnr.sbdf">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_sbdf_bn_df" type="uq-constr" table="rxnr.sbdf">
+		<columns names="bn_rxcui,df_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_sbdf_bn" table="rxnr.sbdf"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="bn_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbdf_df" table="rxnr.sbdf"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="df_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbdf_scdf" table="rxnr.sbdf"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scdf_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="sbdc" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1220" y="1320"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<constraint name="sbdc_pkey" type="pk-constr" table="rxnr.sbdc">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="sbd" layers="0" collapse-mode="1" max-obj-count="20" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="900" y="880"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="scd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="bn_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sbdf_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sbdc_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="prescribable_name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="rxterm_form">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="df_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="available_strengths">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="qual_distinct">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="quantity">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="human_drug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="vet_drug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="unquantified_form_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="sbd_pkey" type="pk-constr" table="rxnr.sbd">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="sbd_rxaui_key" type="uq-constr" table="rxnr.sbd">
+		<columns names="rxaui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_sbd_scd" table="rxnr.sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scd_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbd_bn" table="rxnr.sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="bn_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbd_sbdf" table="rxnr.sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="sbdf_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbd_sbdc" table="rxnr.sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="sbdc_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbd_df" table="rxnr.sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="df_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbd_uqsbd" table="rxnr.sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="unquantified_form_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="gpck" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1980" y="1680"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="prescribable_name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="df_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="human_drug">
+		<type name="boolean" length="0"/>
+	</column>
+	<constraint name="gpck_pkey" type="pk-constr" table="rxnr.gpck">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="gpck_rxaui_key" type="uq-constr" table="rxnr.gpck">
+		<columns names="rxaui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_gpck_df" table="rxnr.gpck"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="df_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="bpck" layers="0" collapse-mode="1" max-obj-count="9" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1400" y="1680"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="gpck_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="prescribable_name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="df_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="human_drug">
+		<type name="boolean" length="0"/>
+	</column>
+	<constraint name="bpck_pkey" type="pk-constr" table="rxnr.bpck">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="bpck_rxaui_key" type="uq-constr" table="rxnr.bpck">
+		<columns names="rxaui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_bpck_gpck" table="rxnr.bpck"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="gpck_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_bpck_df" table="rxnr.bpck"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="df_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="scdc" layers="0" collapse-mode="1" max-obj-count="16" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2480" y="1320"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="in_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="pin_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="boss_active_ingr_name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="boss_active_moi_name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="boss_source">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="rxn_in_expressed_flag">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="strength">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="boss_str_num_unit">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="boss_str_num_val">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="boss_str_denom_unit">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="boss_str_denom_val">
+		<type name="character varying" length="100"/>
+	</column>
+	<constraint name="scdc_pkey" type="pk-constr" table="rxnr.scdc">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="scdc_name_key" type="uq-constr" table="rxnr.scdc">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scdc_in" table="rxnr.scdc"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="in_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_scdc_pin" table="rxnr.scdc"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="pin_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="scdg" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2260" y="440"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="dfg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="scdg_pkey" type="pk-constr" table="rxnr.scdg">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="scdg_name_key" type="uq-constr" table="rxnr.scdg">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scdg_dfg" table="rxnr.scdg"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="dfg_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="scdf_scdg" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2080" y="540"/>
+	<column name="scdf_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scdg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_scdfscdg_cui" type="pk-constr" table="rxnr.scdf_scdg">
+		<columns names="scdf_rxcui,scdg_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scdfscdg_scdg" table="rxnr.scdf_scdg"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scdg_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="sbdg" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="20" y="440"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="bn_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="dfg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scdg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="sbdg_pkey" type="pk-constr" table="rxnr.sbdg">
+		<columns names="rxcui" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_sbdg_bn_dfg" type="uq-constr" table="rxnr.sbdg">
+		<columns names="bn_rxcui,dfg_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_sbdg_bn" table="rxnr.sbdg"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="bn_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbdg_df" table="rxnr.sbdg"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="dfg_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_sbdg_scdg" table="rxnr.sbdg"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scdg_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="sbdf_sbdg" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="420" y="600"/>
+	<column name="sbdf_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sbdg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_sbdfsbdg_cui" type="pk-constr" table="rxnr.sbdf_sbdg">
+		<columns names="sbdf_rxcui,sbdg_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_sbdfsbdg_sbdg" table="rxnr.sbdf_sbdg"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="sbdg_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="sbdg_sbd" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="300" y="860"/>
+	<column name="sbdg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sbd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_sbdgsbd_cui" type="pk-constr" table="rxnr.sbdg_sbd">
+		<columns names="sbdg_rxcui,sbd_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_sbdgsbd_sbd" table="rxnr.sbdg_sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="sbd_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="sbdc_scdc" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1580" y="1360"/>
+	<column name="sbdc_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scdc_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_sbdcscdc" type="pk-constr" table="rxnr.sbdc_scdc">
+		<columns names="sbdc_rxcui,scdc_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_sbdcscdc_scdc" table="rxnr.sbdc_scdc"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scdc_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="et" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="0" y="2080"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<constraint name="pk_doseentrtrm_cuiname" type="pk-constr" table="rxnr.et">
+		<columns names="rxcui,name" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="et_name_key" type="uq-constr" table="rxnr.et">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="scd_sy" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2120" y="1040"/>
+	<column name="scd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="synonym" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="sy_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_scdsy_cuisy" type="pk-constr" table="rxnr.scd_sy">
+		<columns names="scd_rxcui,synonym" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scdsy_sy" table="rxnr.scd_sy"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="synonym"/>
+		</idxelement>
+</index>
+
+<table name="sbd_sy" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="500" y="1100"/>
+	<column name="sbd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="synonym" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="sy_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_sbdsy_cuisy" type="pk-constr" table="rxnr.sbd_sy">
+		<columns names="sbd_rxcui,synonym" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="scdc_scd" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2040" y="1260"/>
+	<column name="scdc_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_scdcscd" type="pk-constr" table="rxnr.scdc_scd">
+		<columns names="scdc_rxcui,scd_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scdscdc_scd" table="rxnr.scdc_scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scd_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="scdg_scd" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2240" y="680"/>
+	<column name="scdg_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_scdgscd_cui" type="pk-constr" table="rxnr.scdg_scd">
+		<columns names="scdg_rxcui,scd_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_scdgscd_scd" table="rxnr.scdg_scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scd_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="gpck_scd" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2080" y="1580"/>
+	<column name="gpck_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_gpckscd_cui" type="pk-constr" table="rxnr.gpck_scd">
+		<columns names="gpck_rxcui,scd_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_gpckscd_scd" table="rxnr.gpck_scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scd_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="bpck_scd" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1660" y="1480"/>
+	<column name="bpck_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_bpckscd_cui" type="pk-constr" table="rxnr.bpck_scd">
+		<columns names="bpck_rxcui,scd_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_bpckscd_scd" table="rxnr.bpck_scd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scd_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="bpck_sbd" layers="0" collapse-mode="0" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1060" y="1740"/>
+	<column name="bpck_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sbd_rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="pk_bpcksbd_cui" type="pk-constr" table="rxnr.bpck_sbd">
+		<columns names="bpck_rxcui,sbd_rxcui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_bpcksbd_sbd" table="rxnr.bpck_sbd"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="sbd_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="atc_drug_class" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="0" y="4200"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="atc_code" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="drug_class" not-null="true">
+		<type name="character varying" length="3000"/>
+	</column>
+	<column name="drug_class_level" not-null="true">
+		<type name="character varying" length="2"/>
+	</column>
+	<constraint name="pk_atcdrugcls_auiclass" type="pk-constr" table="rxnr.atc_drug_class">
+		<columns names="rxaui,drug_class" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="mthspl_sub" layers="0" collapse-mode="1" max-obj-count="9" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="3200" y="2460"/>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="unii">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="biologic_code">
+		<type name="character varying" length="18"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="in_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="pin_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<constraint name="ck_mthspl_sub_notuniiandbiocode" type="ck-constr" table="rxnr.mthspl_sub">
+			<expression><![CDATA[((unii IS NULL) OR (biologic_code IS NULL))]]></expression>
+	</constraint>
+	<constraint name="mthspl_sub_pkey" type="pk-constr" table="rxnr.mthspl_sub">
+		<columns names="rxaui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplsub_cui" table="rxnr.mthspl_sub"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplsub_unii" table="rxnr.mthspl_sub"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="unii"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplsub_code" table="rxnr.mthspl_sub"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="biologic_code"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplsub_in" table="rxnr.mthspl_sub"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="in_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplsub_pin" table="rxnr.mthspl_sub"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="pin_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod" layers="0" collapse-mode="1" max-obj-count="13" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1460" y="2440"/>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="code">
+		<type name="character varying" length="13"/>
+	</column>
+	<column name="rxnorm_created" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="4000"/>
+	</column>
+	<column name="scd_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sbd_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="gpck_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="bpck_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="ambiguity_flag">
+		<type name="character varying" length="9"/>
+	</column>
+	<constraint name="ck_mthsplprod_xor_drug_refs" type="ck-constr" table="rxnr.mthspl_prod">
+			<expression><![CDATA[((((
+CASE
+    WHEN (scd_rxcui IS NULL) THEN 0
+    ELSE 1
+END +
+CASE
+    WHEN (sbd_rxcui IS NULL) THEN 0
+    ELSE 1
+END) +
+CASE
+    WHEN (gpck_rxcui IS NULL) THEN 0
+    ELSE 1
+END) +
+CASE
+    WHEN (bpck_rxcui IS NULL) THEN 0
+    ELSE 1
+END) <= 1)]]></expression>
+	</constraint>
+	<constraint name="mthspl_prod_pkey" type="pk-constr" table="rxnr.mthspl_prod">
+		<columns names="rxaui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprod_cui" table="rxnr.mthspl_prod"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprod_code" table="rxnr.mthspl_prod"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="code"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprod_scd" table="rxnr.mthspl_prod"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="scd_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprod_sbd" table="rxnr.mthspl_prod"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="sbd_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprod_gpck" table="rxnr.mthspl_prod"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="gpck_rxcui"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprod_bpck" table="rxnr.mthspl_prod"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="bpck_rxcui"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_sub_setid" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="3200" y="3180"/>
+	<column name="sub_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="set_id" not-null="true">
+		<type name="character varying" length="46"/>
+	</column>
+	<column name="suppress" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<constraint name="mthspl_sub_setid_pkey" type="pk-constr" table="rxnr.mthspl_sub_setid">
+		<columns names="sub_rxaui,set_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplsubsetid_setid" table="rxnr.mthspl_sub_setid"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="set_id"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_ingr_type" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2740" y="2780"/>
+	<column name="ingr_type" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="description" not-null="true">
+		<type name="character varying" length="1000"/>
+	</column>
+	<constraint name="mthspl_ingr_type_pkey" type="pk-constr" table="rxnr.mthspl_ingr_type">
+		<columns names="ingr_type" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="mthspl_prod_sub" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2460" y="2580"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="ingr_type" not-null="true">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="sub_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="mthspl_prod_sub_pkey" type="pk-constr" table="rxnr.mthspl_prod_sub">
+		<columns names="prod_rxaui,ingr_type,sub_rxaui" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodsub_ingrtype" table="rxnr.mthspl_prod_sub"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="ingr_type"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprodsub_subaui" table="rxnr.mthspl_prod_sub"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="sub_rxaui"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_dmspl" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1880" y="3280"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="dm_spl_id" not-null="true">
+		<type name="character varying" length="46"/>
+	</column>
+	<constraint name="mthspl_prod_dmspl_pkey" type="pk-constr" table="rxnr.mthspl_prod_dmspl">
+		<columns names="prod_rxaui,dm_spl_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthspl_proddmspl_dmsplid" table="rxnr.mthspl_prod_dmspl"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="dm_spl_id"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_setid" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1400" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="spl_set_id" not-null="true">
+		<type name="character varying" length="46"/>
+	</column>
+	<constraint name="mthspl_prod_setid_pkey" type="pk-constr" table="rxnr.mthspl_prod_setid">
+		<columns names="prod_rxaui,spl_set_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodsetid_setid" table="rxnr.mthspl_prod_setid"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="spl_set_id"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_ndc" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1700" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="full_ndc" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="two_part_ndc" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<constraint name="mthspl_prod_ndc_pkey" type="pk-constr" table="rxnr.mthspl_prod_ndc">
+		<columns names="prod_rxaui,full_ndc" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodndc_fullndc" table="rxnr.mthspl_prod_ndc"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="full_ndc"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprodndc_twopartndc" table="rxnr.mthspl_prod_ndc"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="two_part_ndc"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_labeler" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="900" y="3280"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="labeler" not-null="true">
+		<type name="character varying" length="2000"/>
+	</column>
+	<constraint name="mthspl_prod_labeler_pkey" type="pk-constr" table="rxnr.mthspl_prod_labeler">
+		<columns names="prod_rxaui,labeler" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="mthspl_prod_labeltype" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1560" y="3280"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="label_type" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<constraint name="mthspl_prod_labeltype_pkey" type="pk-constr" table="rxnr.mthspl_prod_labeltype">
+		<columns names="prod_rxaui,label_type" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodlblt_lblt" table="rxnr.mthspl_prod_labeltype"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="label_type"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_mktstat" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1080" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="mkt_stat" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<constraint name="mthspl_prod_mktstat_pkey" type="pk-constr" table="rxnr.mthspl_prod_mktstat">
+		<columns names="prod_rxaui,mkt_stat" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodmktstat_mktstat" table="rxnr.mthspl_prod_mktstat"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="mkt_stat"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_mkteffth" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1220" y="3280"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="mkt_eff_time_high" not-null="true">
+		<type name="character varying" length="8"/>
+	</column>
+	<constraint name="mthspl_prod_mkteffth_pkey" type="pk-constr" table="rxnr.mthspl_prod_mkteffth">
+		<columns names="prod_rxaui,mkt_eff_time_high" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodmkteffth_mkteffth" table="rxnr.mthspl_prod_mkteffth"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="mkt_eff_time_high"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_mktefftl" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="740" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="mkt_eff_time_low" not-null="true">
+		<type name="character varying" length="8"/>
+	</column>
+	<constraint name="mthspl_prod_mktefftl_pkey" type="pk-constr" table="rxnr.mthspl_prod_mktefftl">
+		<columns names="prod_rxaui,mkt_eff_time_low" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodmktefftl_mktetl" table="rxnr.mthspl_prod_mktefftl"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="mkt_eff_time_low"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_mktcat" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2160" y="3040"/>
+	<column name="name" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<constraint name="mthspl_mktcat_pkey" type="pk-constr" table="rxnr.mthspl_mktcat">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="mthspl_prod_mktcat" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2060" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="mkt_cat" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<constraint name="mthspl_prod_mktcat_pkey" type="pk-constr" table="rxnr.mthspl_prod_mktcat">
+		<columns names="prod_rxaui,mkt_cat" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodmktcat_mktcat" table="rxnr.mthspl_prod_mktcat"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="mkt_cat"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_mktcat_code" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2400" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="mkt_cat" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="code" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="num" not-null="true">
+		<type name="character varying" length="9"/>
+	</column>
+	<constraint name="mthspl_prod_mktcat_code_pkey" type="pk-constr" table="rxnr.mthspl_prod_mktcat_code">
+		<columns names="prod_rxaui,mkt_cat,code" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodmktcatcode_mktcat" table="rxnr.mthspl_prod_mktcat_code"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="mkt_cat"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprodmktcatcode_code" table="rxnr.mthspl_prod_mktcat_code"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="code"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprodmktcatcode_num" table="rxnr.mthspl_prod_mktcat_code"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="num"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_pillattr" layers="0" collapse-mode="1" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2820" y="3000"/>
+	<column name="attr" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<constraint name="mthspl_pillattr_pkey" type="pk-constr" table="rxnr.mthspl_pillattr">
+		<columns names="attr" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="mthspl_prod_pillattr" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2740" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="attr" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="attr_val" not-null="true">
+		<type name="character varying" length="1000"/>
+	</column>
+	<constraint name="mthspl_prod_pillattr_pkey" type="pk-constr" table="rxnr.mthspl_prod_pillattr">
+		<columns names="prod_rxaui,attr,attr_val" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplprodpillattr_attr" table="rxnr.mthspl_prod_pillattr"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="attr"/>
+		</idxelement>
+</index>
+
+<index name="ix_mthsplprodpillattr_attrval" table="rxnr.mthspl_prod_pillattr"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="attr_val"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_dcsa" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="420" y="3180"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="dcsa" not-null="true">
+		<type name="character varying" length="4"/>
+	</column>
+	<constraint name="mthspl_prod_dcsa_pkey" type="pk-constr" table="rxnr.mthspl_prod_dcsa">
+		<columns names="prod_rxaui,dcsa" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplproddcsa_dcsa" table="rxnr.mthspl_prod_dcsa"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="dcsa"/>
+		</idxelement>
+</index>
+
+<table name="mthspl_prod_nhric" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="540" y="3280"/>
+	<column name="prod_rxaui" not-null="true">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="nhric" not-null="true">
+		<type name="character varying" length="13"/>
+	</column>
+	<constraint name="mthspl_prod_nhric_pkey" type="pk-constr" table="rxnr.mthspl_prod_nhric">
+		<columns names="prod_rxaui,nhric" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="ix_mthsplproddcsa_nhric" table="rxnr.mthspl_prod_nhric"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="nhric"/>
+		</idxelement>
+</index>
+
+<view name="in_unii_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1560" y="3160"/>
+	<reference>
+		<expression><![CDATA[ SELECT DISTINCT s.in_rxcui,
+    s.unii
+   FROM (mthspl_sub s
+     JOIN "in" i ON (((i.rxcui)::text = (s.in_rxcui)::text)));]]></expression>
+	<column name="in_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="unii">
+		<type name="character varying" length="10"/>
+	</column>
+		<reftable name="rxnr.&quot;in&quot;"/>
+		<reftable name="rxnr.mthspl_sub"/>
+	</reference>
+</view>
+
+<relationship name="rel_in_unii_v_in" type="reltv" layers="1"
+	 custom-color="#615659"
+	 src-table="rxnr.in_unii_v"
+	 dst-table="rxnr.&quot;in&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_in_unii_v_mthspl_sub" type="reltv" layers="1"
+	 custom-color="#1549c4"
+	 src-table="rxnr.in_unii_v"
+	 dst-table="rxnr.mthspl_sub"
+	 src-required="false" dst-required="false"/>
+
+<view name="pin_unii_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1820" y="3160"/>
+	<reference>
+		<expression><![CDATA[ SELECT DISTINCT s.pin_rxcui,
+    s.unii
+   FROM (mthspl_sub s
+     JOIN pin i ON (((i.rxcui)::text = (s.pin_rxcui)::text)));]]></expression>
+	<column name="pin_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="unii">
+		<type name="character varying" length="10"/>
+	</column>
+		<reftable name="rxnr.pin"/>
+		<reftable name="rxnr.mthspl_sub"/>
+	</reference>
+</view>
+
+<relationship name="rel_pin_unii_v_pin" type="reltv" layers="1"
+	 custom-color="#cac1e5"
+	 src-table="rxnr.pin_unii_v"
+	 dst-table="rxnr.pin"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pin_unii_v_mthspl_sub" type="reltv" layers="1"
+	 custom-color="#9972f8"
+	 src-table="rxnr.pin_unii_v"
+	 dst-table="rxnr.mthspl_sub"
+	 src-required="false" dst-required="false"/>
+
+<view name="scd_unii_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<comment><![CDATA[Pairs of SCD/UNII-CUI for both IN and PIN ingredients.]]></comment>
+	<position x="2100" y="3160"/>
+	<reference>
+		<expression><![CDATA[ SELECT scd.rxcui AS scd_rxcui,
+    iu.unii
+   FROM ((((scdc_scd
+     JOIN scd ON (((scdc_scd.scd_rxcui)::text = (scd.rxcui)::text)))
+     JOIN scdc ON (((scdc_scd.scdc_rxcui)::text = (scdc.rxcui)::text)))
+     JOIN "in" i ON (((i.rxcui)::text = (scdc.in_rxcui)::text)))
+     JOIN in_unii_v iu ON (((iu.in_rxcui)::text = (i.rxcui)::text)))
+UNION
+ SELECT scd.rxcui AS scd_rxcui,
+    piu.unii
+   FROM ((((scdc_scd
+     JOIN scd ON (((scdc_scd.scd_rxcui)::text = (scd.rxcui)::text)))
+     JOIN scdc ON (((scdc_scd.scdc_rxcui)::text = (scdc.rxcui)::text)))
+     JOIN pin i ON (((i.rxcui)::text = (scdc.pin_rxcui)::text)))
+     JOIN pin_unii_v piu ON (((piu.pin_rxcui)::text = (i.rxcui)::text)));]]></expression>
+	<column name="scd_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="unii">
+		<type name="character varying" length="10"/>
+	</column>
+		<reftable name="rxnr.&quot;in&quot;"/>
+		<reftable name="rxnr.pin"/>
+		<reftable name="rxnr.scd"/>
+		<reftable name="rxnr.scdc"/>
+		<reftable name="rxnr.scdc_scd"/>
+	</reference>
+</view>
+
+<relationship name="rel_scd_unii_v_in" type="reltv" layers="1"
+	 custom-color="#209b83"
+	 src-table="rxnr.scd_unii_v"
+	 dst-table="rxnr.&quot;in&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scd_unii_v_pin" type="reltv" layers="1"
+	 custom-color="#14eb71"
+	 src-table="rxnr.scd_unii_v"
+	 dst-table="rxnr.pin"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scd_unii_v_scd" type="reltv" layers="1"
+	 custom-color="#7b5108"
+	 src-table="rxnr.scd_unii_v"
+	 dst-table="rxnr.scd"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scd_unii_v_scdc" type="reltv" layers="1"
+	 custom-color="#6393fa"
+	 src-table="rxnr.scd_unii_v"
+	 dst-table="rxnr.scdc"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scd_unii_v_scdc_scd" type="reltv" layers="1"
+	 custom-color="#3fdaf5"
+	 src-table="rxnr.scd_unii_v"
+	 dst-table="rxnr.scdc_scd"
+	 src-required="false" dst-required="false"/>
+
+<view name="scdg_in_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1080" y="3360"/>
+	<reference>
+		<expression><![CDATA[ SELECT DISTINCT scdg.rxcui AS scdg_rxcui,
+    i.rxcui AS in_rxcui
+   FROM ((((scdg
+     JOIN scdg_scd ON (((scdg_scd.scdg_rxcui)::text = (scdg.rxcui)::text)))
+     JOIN scdc_scd ON (((scdc_scd.scd_rxcui)::text = (scdg_scd.scd_rxcui)::text)))
+     JOIN scdc ON (((scdc.rxcui)::text = (scdc_scd.scdc_rxcui)::text)))
+     JOIN "in" i ON (((scdc.in_rxcui)::text = (i.rxcui)::text)));]]></expression>
+	<column name="scdg_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="in_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+		<reftable name="rxnr.&quot;in&quot;"/>
+		<reftable name="rxnr.scdc"/>
+		<reftable name="rxnr.scdg"/>
+		<reftable name="rxnr.scdc_scd"/>
+		<reftable name="rxnr.scdg_scd"/>
+	</reference>
+</view>
+
+<relationship name="rel_scdg_in_v_in" type="reltv" layers="1"
+	 custom-color="#a96d2e"
+	 src-table="rxnr.scdg_in_v"
+	 dst-table="rxnr.&quot;in&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scdg_in_v_scdc" type="reltv" layers="1"
+	 custom-color="#2f516e"
+	 src-table="rxnr.scdg_in_v"
+	 dst-table="rxnr.scdc"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scdg_in_v_scdg" type="reltv" layers="1"
+	 custom-color="#5017e9"
+	 src-table="rxnr.scdg_in_v"
+	 dst-table="rxnr.scdg"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scdg_in_v_scdc_scd" type="reltv" layers="1"
+	 custom-color="#71607d"
+	 src-table="rxnr.scdg_in_v"
+	 dst-table="rxnr.scdc_scd"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scdg_in_v_scdg_scd" type="reltv" layers="1"
+	 custom-color="#5a3e3a"
+	 src-table="rxnr.scdg_in_v"
+	 dst-table="rxnr.scdg_scd"
+	 src-required="false" dst-required="false"/>
+
+<view name="ent_scd_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1360" y="3360"/>
+	<reference>
+		<expression><![CDATA[ SELECT scd.rxcui,
+    scd.name,
+    scd.prescribable_name AS "prescribableName",
+    scd.rxterm_form AS "rxtermForm",
+    df.name AS "dosageForm",
+    scd.ingrset_rxcui AS "ingrSetRxcui",
+    scd.available_strengths AS "availableStrengths",
+    scd.qual_distinct AS "qualDistinct",
+    scd.quantity,
+    scd.human_drug AS "humanDrug",
+    scd.vet_drug AS "vetDrug",
+    scd.unquantified_form_rxcui AS "unquantifiedFormRxcui",
+    scd.suppress
+   FROM (scd
+     JOIN df ON (((df.rxcui)::text = (scd.df_rxcui)::text)));]]></expression>
+	<column name="rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="prescribableName">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="rxtermForm">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="dosageForm">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="ingrSetRxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="availableStrengths">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="qualDistinct">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="quantity">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="humanDrug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="vetDrug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="unquantifiedFormRxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="suppress">
+		<type name="character varying" length="1"/>
+	</column>
+		<reftable name="rxnr.df"/>
+		<reftable name="rxnr.scd"/>
+	</reference>
+</view>
+
+<relationship name="rel_ent_scd_v_df" type="reltv" layers="1"
+	 custom-color="#a7cbbf"
+	 src-table="rxnr.ent_scd_v"
+	 dst-table="rxnr.df"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ent_scd_v_scd" type="reltv" layers="1"
+	 custom-color="#fee084"
+	 src-table="rxnr.ent_scd_v"
+	 dst-table="rxnr.scd"
+	 src-required="false" dst-required="false"/>
+
+<view name="ent_sbd_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1720" y="3360"/>
+	<reference>
+		<expression><![CDATA[ SELECT sbd.rxcui,
+    sbd.name,
+    sbd.prescribable_name AS "prescribableName",
+    sbd.rxterm_form AS "rxtermForm",
+    df.name AS "dosageForm",
+    sbd.available_strengths AS "availableStrengths",
+    sbd.qual_distinct AS "qualDistinct",
+    sbd.quantity,
+    sbd.human_drug AS "humanDrug",
+    sbd.vet_drug AS "vetDrug",
+    sbd.unquantified_form_rxcui AS "unquantifiedFormRxcui",
+    sbd.suppress
+   FROM (sbd
+     JOIN df ON (((df.rxcui)::text = (sbd.df_rxcui)::text)));]]></expression>
+	<column name="rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="prescribableName">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="rxtermForm">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="dosageForm">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="availableStrengths">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="qualDistinct">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="quantity">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="humanDrug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="vetDrug">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="unquantifiedFormRxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="suppress">
+		<type name="character varying" length="1"/>
+	</column>
+		<reftable name="rxnr.df"/>
+		<reftable name="rxnr.sbd"/>
+	</reference>
+</view>
+
+<relationship name="rel_ent_sbd_v_df" type="reltv" layers="1"
+	 custom-color="#a3aa95"
+	 src-table="rxnr.ent_sbd_v"
+	 dst-table="rxnr.df"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ent_sbd_v_sbd" type="reltv" layers="1"
+	 custom-color="#545c66"
+	 src-table="rxnr.ent_sbd_v"
+	 dst-table="rxnr.sbd"
+	 src-required="false" dst-required="false"/>
+
+<view name="ndc_scd_mv" layers="1" materialized="true" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1240" y="3380"/>
+	<reference>
+		<expression><![CDATA[ SELECT DISTINCT pc.two_part_ndc,
+    d.rxcui AS scd_rxcui
+   FROM ((mthspl_prod_ndc pc
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (pc.prod_rxaui)::text)))
+     JOIN scd d ON (((d.rxcui)::text = (p.rxcui)::text)));]]></expression>
+	<column name="two_part_ndc">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scd_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+		<reftable name="rxnr.scd"/>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+	</reference>
+</view>
+
+<relationship name="rel_ndc_scd_mv_scd" type="reltv" layers="1"
+	 custom-color="#351371"
+	 src-table="rxnr.ndc_scd_mv"
+	 dst-table="rxnr.scd"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ndc_scd_mv_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#d066dc"
+	 src-table="rxnr.ndc_scd_mv"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ndc_scd_mv_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#a31816"
+	 src-table="rxnr.ndc_scd_mv"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<index name="ix_ndcscdmv_ndccui" table="rxnr.ndc_scd_mv"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<expression><![CDATA[two_part_ndc]]></expression>
+		</idxelement>
+		<idxelement use-sorting="false">
+			<expression><![CDATA[scd_rxcui]]></expression>
+		</idxelement>
+</index>
+
+<index name="ix_ndcscdmv_cui" table="rxnr.ndc_scd_mv"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<expression><![CDATA[scd_rxcui]]></expression>
+		</idxelement>
+</index>
+
+<view name="ndc_sbd_mv" layers="1" materialized="true" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="0" y="3660"/>
+	<reference>
+		<expression><![CDATA[ SELECT DISTINCT pc.two_part_ndc,
+    d.rxcui AS sbd_rxcui
+   FROM ((mthspl_prod_ndc pc
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (pc.prod_rxaui)::text)))
+     JOIN sbd d ON (((d.rxcui)::text = (p.rxcui)::text)));]]></expression>
+	<column name="two_part_ndc">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sbd_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+		<reftable name="rxnr.sbd"/>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+	</reference>
+</view>
+
+<relationship name="rel_ndc_sbd_mv_sbd" type="reltv" layers="1"
+	 custom-color="#5d11d3"
+	 src-table="rxnr.ndc_sbd_mv"
+	 dst-table="rxnr.sbd"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ndc_sbd_mv_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#77d71a"
+	 src-table="rxnr.ndc_sbd_mv"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ndc_sbd_mv_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#900f03"
+	 src-table="rxnr.ndc_sbd_mv"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<index name="ix_ndcsbdmv_ndccui" table="rxnr.ndc_sbd_mv"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<expression><![CDATA[two_part_ndc]]></expression>
+		</idxelement>
+		<idxelement use-sorting="false">
+			<expression><![CDATA[sbd_rxcui]]></expression>
+		</idxelement>
+</index>
+
+<index name="ix_ndcsbdmv_cui" table="rxnr.ndc_sbd_mv"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<expression><![CDATA[sbd_rxcui]]></expression>
+		</idxelement>
+</index>
+
+<view name="relents_ndc_mv" layers="1" materialized="true" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="280" y="3660"/>
+	<reference>
+		<expression><![CDATA[ SELECT pc.two_part_ndc AS ndc,
+    ( SELECT COALESCE(json_agg(d.*), '[]'::json) AS "coalesce"
+           FROM ent_scd_v d
+          WHERE ((d.rxcui)::text IN ( SELECT ndc_scd_mv.scd_rxcui
+                   FROM ndc_scd_mv
+                  WHERE ((ndc_scd_mv.two_part_ndc)::text = (pc.two_part_ndc)::text)))) AS scds,
+    ( SELECT COALESCE(json_agg(d.*), '[]'::json) AS "coalesce"
+           FROM ent_sbd_v d
+          WHERE ((d.rxcui)::text IN ( SELECT ndc_sbd_mv.sbd_rxcui
+                   FROM ndc_sbd_mv
+                  WHERE ((ndc_sbd_mv.two_part_ndc)::text = (pc.two_part_ndc)::text)))) AS sbds
+   FROM (mthspl_prod_ndc pc
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (pc.prod_rxaui)::text)))
+  GROUP BY pc.two_part_ndc;]]></expression>
+	<column name="ndc">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="scds">
+		<type name="json" length="0"/>
+	</column>
+	<column name="sbds">
+		<type name="json" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+	</reference>
+</view>
+
+<relationship name="rel_relents_ndc_mv_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#5d985e"
+	 src-table="rxnr.relents_ndc_mv"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_relents_ndc_mv_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#ee5122"
+	 src-table="rxnr.relents_ndc_mv"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<index name="ix_relentsndc_ndc" table="rxnr.relents_ndc_mv"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<expression><![CDATA[ndc]]></expression>
+		</idxelement>
+</index>
+
+<function name="uniis_str"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="100"
+		row-amount="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<language name="sql"/>
+	<return-type>
+	<type name="character varying" length="1"/>
+	</return-type>
+	<parameter name="p_prod_rxaui">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[select string_agg(distinct s.unii, '|' order by s.unii)
+from mthspl_prod_sub ps
+       join mthspl_sub s on s.rxaui = ps.sub_rxaui
+where ps.prod_rxaui = p_prod_rxaui and ps.ingr_type <> 'I']]></definition>
+</function>
+
+<function name="drug_name"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="100"
+		row-amount="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<language name="sql"/>
+	<return-type>
+	<type name="character varying" length="1"/>
+	</return-type>
+	<parameter name="p_drug_rxcui">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[select d.str
+from rxno.rxnconso d
+where d.rxcui = p_drug_rxcui and d.tty in ('SBD','SCD') and d.sab='RXNORM';]]></definition>
+</function>
+
+<table name="rxnconso" layers="1" collapse-mode="2" max-obj-count="21" z-value="0">
+	<schema name="rxno"/>
+	<role name="rxnorm"/>
+	<position x="2540" y="3440"/>
+	<column name="rxcui" not-null="true">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="lat" not-null="true" default-value="'ENG'">
+		<type name="character varying" length="3"/>
+	</column>
+	<column name="ts">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="lui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="stt">
+		<type name="character varying" length="3"/>
+	</column>
+	<column name="sui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="ispref">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="rxaui" not-null="true">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="saui">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="scui">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="sdui">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="sab" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="tty" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="code" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="str" not-null="true">
+		<type name="character varying" length="3000"/>
+	</column>
+	<column name="srl">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="suppress">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="cvf">
+		<type name="character varying" length="50"/>
+	</column>
+</table>
+
+<table name="rxnrel" layers="1" collapse-mode="2" max-obj-count="19" z-value="0">
+	<schema name="rxno"/>
+	<role name="rxnorm"/>
+	<position x="2540" y="2940"/>
+	<column name="rxcui1">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="rxaui1">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="stype1">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="rel">
+		<type name="character varying" length="4"/>
+	</column>
+	<column name="rxcui2">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="rxaui2">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="stype2">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="rela">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="rui">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="srui">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="sab" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="sl">
+		<type name="character varying" length="1000"/>
+	</column>
+	<column name="dir">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="rg">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="suppress">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="cvf">
+		<type name="character varying" length="50"/>
+	</column>
+</table>
+
+<view name="drug_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1380" y="3640"/>
+	<reference>
+		<expression><![CDATA[ SELECT d.rxcui,
+    d.rxaui,
+    d.tty,
+    d.str AS name,
+    ( SELECT psn.str
+           FROM rxno.rxnconso psn
+          WHERE (((psn.tty)::text = 'PSN'::text) AND ((psn.rxcui)::text = (d.rxcui)::text))) AS prescribable_name,
+    d.suppress,
+        CASE
+            WHEN (EXISTS ( SELECT 1
+               FROM rxno.rxnrel
+              WHERE (((rxnrel.rela)::text = 'has_quantified_form'::text) AND ((rxnrel.rxcui1)::text = (d.rxcui)::text)))) THEN 'Q'::text
+            WHEN (EXISTS ( SELECT 1
+               FROM rxno.rxnrel
+              WHERE (((rxnrel.rela)::text = 'quantified_form_of'::text) AND ((rxnrel.rxcui1)::text = (d.rxcui)::text)))) THEN 'UQ'::text
+            ELSE NULL::text
+        END AS quantification
+   FROM rxno.rxnconso d
+  WHERE (((d.sab)::text = 'RXNORM'::text) AND ((d.tty)::text = ANY ((ARRAY['SBD'::character varying, 'SCD'::character varying])::text[])));]]></expression>
+	<column name="rxcui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="rxaui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="tty">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="name">
+		<type name="character varying" length="3000"/>
+	</column>
+	<column name="prescribable_name">
+		<type name="character varying" length="3000"/>
+	</column>
+	<column name="suppress">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="quantification">
+		<type name="text" length="0"/>
+	</column>
+		<reftable name="rxno.rxnconso"/>
+		<reftable name="rxno.rxnrel"/>
+	</reference>
+</view>
+
+<relationship name="rel_drug_v_rxnconso" type="reltv" layers="1"
+	 custom-color="#ab8cbb"
+	 src-table="rxnr.drug_v"
+	 dst-table="rxno.rxnconso"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_drug_v_rxnrel" type="reltv" layers="1"
+	 custom-color="#5f4700"
+	 src-table="rxnr.drug_v"
+	 dst-table="rxno.rxnrel"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_prod_sub_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1680" y="3640"/>
+	<reference>
+		<expression><![CDATA[ SELECT ps.prod_rxaui,
+    p.rxcui AS prod_rxcui,
+    p.code AS prod_code,
+    p.rxnorm_created AS prod_rxnorm_created,
+    p.name AS prod_name,
+    p.suppress AS prod_suppress,
+    p.ambiguity_flag AS prod_ambiguity_flag,
+    ps.ingr_type,
+    ps.sub_rxaui,
+    s.rxcui AS sub_rxcui,
+    s.unii AS sub_unii,
+    s.biologic_code AS sub_biologic_code,
+    s.name AS sub_name,
+    s.suppress AS sub_suppress
+   FROM ((mthspl_prod_sub ps
+     JOIN mthspl_prod p ON (((ps.prod_rxaui)::text = (p.rxaui)::text)))
+     JOIN mthspl_sub s ON (((s.rxaui)::text = (ps.sub_rxaui)::text)));]]></expression>
+	<column name="prod_rxaui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="prod_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="prod_code">
+		<type name="character varying" length="13"/>
+	</column>
+	<column name="prod_rxnorm_created">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="prod_name">
+		<type name="character varying" length="4000"/>
+	</column>
+	<column name="prod_suppress">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="prod_ambiguity_flag">
+		<type name="character varying" length="9"/>
+	</column>
+	<column name="ingr_type">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="sub_rxaui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sub_rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="sub_unii">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="sub_biologic_code">
+		<type name="character varying" length="18"/>
+	</column>
+	<column name="sub_name">
+		<type name="character varying" length="2000"/>
+	</column>
+	<column name="sub_suppress">
+		<type name="character varying" length="1"/>
+	</column>
+		<reftable name="rxnr.mthspl_sub"/>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_sub"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_prod_sub_v_mthspl_sub" type="reltv" layers="1"
+	 custom-color="#27b616"
+	 src-table="rxnr.mthspl_prod_sub_v"
+	 dst-table="rxnr.mthspl_sub"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_sub_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#96f2ca"
+	 src-table="rxnr.mthspl_prod_sub_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_sub_v_mthspl_prod_sub" type="reltv" layers="1"
+	 custom-color="#e3ef9c"
+	 src-table="rxnr.mthspl_prod_sub_v"
+	 dst-table="rxnr.mthspl_prod_sub"
+	 src-required="false" dst-required="false"/>
+
+<view name="drug_generalized_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<comment><![CDATA[drugs with non-quantified, generic, and non-quantified generic variants]]></comment>
+	<position x="2040" y="3640"/>
+	<reference>
+		<expression><![CDATA[ SELECT d.rxcui,
+    ( SELECT rel.rxcui1
+           FROM rxno.rxnrel rel
+          WHERE (((rel.rela)::text = 'quantified_form_of'::text) AND ((rel.rxcui2)::text = (d.rxcui)::text))) AS non_quantified_rxcui,
+        CASE
+            WHEN ((d.tty)::text = 'SCD'::text) THEN d.rxcui
+            ELSE ( SELECT sbd.scd_rxcui
+               FROM sbd
+              WHERE ((sbd.rxcui)::text = (d.rxcui)::text))
+        END AS generic_rxcui,
+        CASE
+            WHEN ((d.tty)::text = 'SCD'::text) THEN ( SELECT rel.rxcui1
+               FROM rxno.rxnrel rel
+              WHERE (((rel.rela)::text = 'quantified_form_of'::text) AND ((rel.rxcui2)::text = (d.rxcui)::text)))
+            ELSE ( SELECT rel.rxcui1
+               FROM rxno.rxnrel rel
+              WHERE (((rel.rela)::text = 'quantified_form_of'::text) AND ((rel.rxcui2)::text IN ( SELECT sbd.scd_rxcui
+                       FROM sbd
+                      WHERE ((sbd.rxcui)::text = (d.rxcui)::text)))))
+        END AS generic_unquantified_rxcui
+   FROM drug_v d;]]></expression>
+	<column name="rxcui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="non_quantified_rxcui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="generic_rxcui">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="generic_unquantified_rxcui">
+		<type name="character varying" length="8"/>
+	</column>
+		<reftable name="rxno.rxnrel"/>
+		<reftable name="rxnr.sbd"/>
+	</reference>
+</view>
+
+<relationship name="rel_drug_generalized_v_rxnrel" type="reltv" layers="1"
+	 custom-color="#ff806f"
+	 src-table="rxnr.drug_generalized_v"
+	 dst-table="rxno.rxnrel"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_drug_generalized_v_sbd" type="reltv" layers="1"
+	 custom-color="#a32fff"
+	 src-table="rxnr.drug_generalized_v"
+	 dst-table="rxnr.sbd"
+	 src-required="false" dst-required="false"/>
+
+<view name="drug_generalized_mv" layers="1" materialized="true" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="0" y="3980"/>
+	<reference>
+		<expression><![CDATA[ SELECT drug_generalized_v.rxcui,
+    drug_generalized_v.non_quantified_rxcui,
+    drug_generalized_v.generic_rxcui,
+    drug_generalized_v.generic_unquantified_rxcui
+   FROM drug_generalized_v;]]></expression>
+	<column name="rxcui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="non_quantified_rxcui">
+		<type name="character varying" length="8"/>
+	</column>
+	<column name="generic_rxcui">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="generic_unquantified_rxcui">
+		<type name="character varying" length="8"/>
+	</column>
+	</reference>
+</view>
+
+<index name="ix_druggeneral_rxcui" table="rxnr.drug_generalized_mv"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<expression><![CDATA[rxcui]]></expression>
+		</idxelement>
+</index>
+
+<view name="mthspl_prod_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1160" y="3960"/>
+	<reference>
+		<expression><![CDATA[ SELECT p.rxaui,
+    p.rxcui,
+    p.code,
+    p.rxnorm_created,
+    p.name,
+    p.suppress,
+    p.ambiguity_flag,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT uniis_str(mp.rxaui)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod mp
+          WHERE ((mp.rxaui)::text = (p.rxaui)::text)) AS prod_uniis,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT mps.spl_set_id), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_setid mps
+          WHERE ((mps.prod_rxaui)::text = (p.rxaui)::text)) AS set_ids,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT mthspl_prod_labeltype.label_type), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeltype
+          WHERE ((mthspl_prod_labeltype.prod_rxaui)::text = (p.rxaui)::text)) AS label_types,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT mthspl_prod_labeler.labeler), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeler
+          WHERE ((mthspl_prod_labeler.prod_rxaui)::text = (p.rxaui)::text)) AS labelers,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT mthspl_prod_mktcat.mkt_cat), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat
+          WHERE ((mthspl_prod_mktcat.prod_rxaui)::text = (p.rxaui)::text)) AS mkt_cats,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT mthspl_prod_mktcat_code.code), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat_code
+          WHERE ((mthspl_prod_mktcat_code.prod_rxaui)::text = (p.rxaui)::text)) AS mkt_cat_codes,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT mthspl_prod_ndc.full_ndc), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_ndc
+          WHERE ((mthspl_prod_ndc.prod_rxaui)::text = (p.rxaui)::text)) AS full_ndc_codes,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT mthspl_prod_ndc.two_part_ndc), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_ndc
+          WHERE ((mthspl_prod_ndc.prod_rxaui)::text = (p.rxaui)::text)) AS short_ndc_codes,
+    ( SELECT COALESCE(jsonb_agg(jsonb_build_object('ingrType', ps.ingr_type, 'rxaui', ps.sub_rxaui, 'rxcui', ps.sub_rxcui, 'unii', ps.sub_unii, 'biologicCode', ps.sub_biologic_code, 'name', ps.sub_name, 'suppress', ps.sub_suppress)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_sub_v ps
+          WHERE ((p.rxaui)::text = (ps.prod_rxaui)::text)) AS substances
+   FROM mthspl_prod p;]]></expression>
+	<column name="rxaui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="code">
+		<type name="character varying" length="13"/>
+	</column>
+	<column name="rxnorm_created">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="name">
+		<type name="character varying" length="4000"/>
+	</column>
+	<column name="suppress">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="ambiguity_flag">
+		<type name="character varying" length="9"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="set_ids">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="mkt_cats">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="mkt_cat_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="full_ndc_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="short_ndc_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="substances">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_setid"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+		<reftable name="rxnr.mthspl_prod_labeler"/>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+		<reftable name="rxnr.mthspl_prod_mktcat"/>
+		<reftable name="rxnr.mthspl_prod_mktcat_code"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_prod_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#118939"
+	 src-table="rxnr.mthspl_prod_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_v_mthspl_prod_setid" type="reltv" layers="1"
+	 custom-color="#9a5dd8"
+	 src-table="rxnr.mthspl_prod_v"
+	 dst-table="rxnr.mthspl_prod_setid"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_v_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#69b72a"
+	 src-table="rxnr.mthspl_prod_v"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_v_mthspl_prod_labeler" type="reltv" layers="1"
+	 custom-color="#1985dc"
+	 src-table="rxnr.mthspl_prod_v"
+	 dst-table="rxnr.mthspl_prod_labeler"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#081048"
+	 src-table="rxnr.mthspl_prod_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_v_mthspl_prod_mktcat" type="reltv" layers="1"
+	 custom-color="#2fbbe5"
+	 src-table="rxnr.mthspl_prod_v"
+	 dst-table="rxnr.mthspl_prod_mktcat"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_v_mthspl_prod_mktcat_code" type="reltv" layers="1"
+	 custom-color="#291519"
+	 src-table="rxnr.mthspl_prod_v"
+	 dst-table="rxnr.mthspl_prod_mktcat_code"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_rxprod_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1480" y="3960"/>
+	<reference>
+		<expression><![CDATA[ SELECT p.rxaui,
+    p.rxcui,
+    p.code,
+    p.rxnorm_created,
+    p.name,
+    p.suppress,
+    p.ambiguity_flag,
+    p.prod_uniis,
+    p.set_ids,
+    p.label_types,
+    p.labelers,
+    p.mkt_cats,
+    p.mkt_cat_codes,
+    p.full_ndc_codes,
+    p.short_ndc_codes,
+    p.substances
+   FROM mthspl_prod_v p
+  WHERE ((p.rxaui)::text IN ( SELECT plt.prod_rxaui
+           FROM mthspl_prod_labeltype plt
+          WHERE (((plt.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL'::text) OR ((plt.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL WITH HIGHLIGHTS'::text))));]]></expression>
+	<column name="rxaui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="rxcui">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="code">
+		<type name="character varying" length="13"/>
+	</column>
+	<column name="rxnorm_created">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="name">
+		<type name="character varying" length="4000"/>
+	</column>
+	<column name="suppress">
+		<type name="character varying" length="1"/>
+	</column>
+	<column name="ambiguity_flag">
+		<type name="character varying" length="9"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="set_ids">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="mkt_cats">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="mkt_cat_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="full_ndc_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="short_ndc_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="substances">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_rxprod_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#b7e504"
+	 src-table="rxnr.mthspl_rxprod_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_mktcode_prod_drug_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1820" y="3960"/>
+	<reference>
+		<expression><![CDATA[ SELECT pmcc.code AS application_code,
+    pmcc.mkt_cat AS market_catergory,
+    COALESCE(jsonb_agg(DISTINCT p.name), '[]'::jsonb) AS product_name,
+    COALESCE(jsonb_agg(DISTINCT p.code), '[]'::jsonb) AS product_code,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pn.two_part_ndc), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_ndc pn
+          WHERE ((pn.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS ndcs,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT ps.spl_set_id), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_setid ps
+          WHERE ((ps.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS set_ids,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT plt.label_type), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeltype plt
+          WHERE ((plt.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS label_types,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pl.labeler), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeler pl
+          WHERE ((pl.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS labelers,
+    COALESCE(jsonb_agg(DISTINCT uniis_str(pmcc.prod_rxaui)), '[]'::jsonb) AS prod_uniis,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT jsonb_build_object('ingrType', s.ingr_type, 'rxaui', s.sub_rxaui, 'rxcui', s.sub_rxcui, 'unii', s.sub_unii, 'biologicCode', s.sub_biologic_code, 'name', s.sub_name, 'suppress', s.sub_suppress)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_sub_v s
+          WHERE ((s.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS product_substances,
+    COALESCE(jsonb_agg(DISTINCT d.rxcui) FILTER (WHERE (d.rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_cuis,
+    COALESCE(jsonb_agg(DISTINCT d.tty) FILTER (WHERE (d.tty IS NOT NULL)), '[]'::jsonb) AS rxnorm_term_types,
+    COALESCE(jsonb_agg(DISTINCT d.name) FILTER (WHERE (d.name IS NOT NULL)), '[]'::jsonb) AS rxnorm_drug_names,
+    COALESCE(jsonb_agg(DISTINCT d.prescribable_name) FILTER (WHERE (d.prescribable_name IS NOT NULL)), '[]'::jsonb) AS rxnorm_prescribable_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.non_quantified_rxcui) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.non_quantified_rxcui)) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS unquantified_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_rxcui) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_rxcui)) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_unquantified_rxcui) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_unquantified_rxcui)) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_unqualified_names
+   FROM (((mthspl_prod_mktcat_code pmcc
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (pmcc.prod_rxaui)::text)))
+     LEFT JOIN drug_v d ON (((d.rxcui)::text = (p.rxcui)::text)))
+     LEFT JOIN drug_generalized_mv dgm ON (((d.rxcui)::text = (dgm.rxcui)::text)))
+  GROUP BY pmcc.code, pmcc.mkt_cat;]]></expression>
+	<column name="application_code">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="market_catergory">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="product_name">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_code">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="ndcs">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="set_ids">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_substances">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_term_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_drug_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_prescribable_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="unquantified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_unqualified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_setid"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+		<reftable name="rxnr.mthspl_prod_labeler"/>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+		<reftable name="rxnr.mthspl_prod_mktcat_code"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_mktcode_prod_drug_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#255cc2"
+	 src-table="rxnr.mthspl_mktcode_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_prod_drug_v_mthspl_prod_setid" type="reltv" layers="1"
+	 custom-color="#1a6247"
+	 src-table="rxnr.mthspl_mktcode_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_setid"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_prod_drug_v_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#27ad8b"
+	 src-table="rxnr.mthspl_mktcode_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_prod_drug_v_mthspl_prod_labeler" type="reltv" layers="1"
+	 custom-color="#ad52e1"
+	 src-table="rxnr.mthspl_mktcode_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeler"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_prod_drug_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#c28244"
+	 src-table="rxnr.mthspl_mktcode_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_prod_drug_v_mthspl_prod_mktcat_code" type="reltv" layers="1"
+	 custom-color="#6ac332"
+	 src-table="rxnr.mthspl_mktcode_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat_code"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_mktcode_rxprod_drug_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2220" y="3960"/>
+	<reference>
+		<expression><![CDATA[ SELECT pmcc.code AS application_code,
+    pmcc.mkt_cat AS market_catergory,
+    COALESCE(jsonb_agg(DISTINCT p.name), '[]'::jsonb) AS product_name,
+    COALESCE(jsonb_agg(DISTINCT p.code), '[]'::jsonb) AS product_code,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pn.two_part_ndc), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_ndc pn
+          WHERE ((pn.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS ndcs,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT ps.spl_set_id), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_setid ps
+          WHERE ((ps.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS set_ids,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT plt.label_type), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeltype plt
+          WHERE ((plt.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS label_types,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pl.labeler), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeler pl
+          WHERE ((pl.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS labelers,
+    COALESCE(jsonb_agg(DISTINCT uniis_str(pmcc.prod_rxaui)), '[]'::jsonb) AS prod_uniis,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT jsonb_build_object('ingrType', s.ingr_type, 'rxaui', s.sub_rxaui, 'rxcui', s.sub_rxcui, 'unii', s.sub_unii, 'biologicCode', s.sub_biologic_code, 'name', s.sub_name, 'suppress', s.sub_suppress)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_sub_v s
+          WHERE ((s.prod_rxaui)::text IN ( SELECT pmc.prod_rxaui
+                   FROM mthspl_prod_mktcat_code pmc
+                  WHERE ((pmc.code)::text = (pmcc.code)::text)))) AS product_substances,
+    COALESCE(jsonb_agg(DISTINCT d.rxcui) FILTER (WHERE (d.rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_cuis,
+    COALESCE(jsonb_agg(DISTINCT d.tty) FILTER (WHERE (d.tty IS NOT NULL)), '[]'::jsonb) AS rxnorm_term_types,
+    COALESCE(jsonb_agg(DISTINCT d.name) FILTER (WHERE (d.name IS NOT NULL)), '[]'::jsonb) AS rxnorm_drug_names,
+    COALESCE(jsonb_agg(DISTINCT d.prescribable_name) FILTER (WHERE (d.prescribable_name IS NOT NULL)), '[]'::jsonb) AS rxnorm_prescribable_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.non_quantified_rxcui) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.non_quantified_rxcui)) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS unquantified_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_rxcui) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_rxcui)) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_unquantified_rxcui) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_unquantified_rxcui)) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_unqualified_names
+   FROM (((mthspl_prod_mktcat_code pmcc
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (pmcc.prod_rxaui)::text)))
+     LEFT JOIN drug_v d ON (((d.rxcui)::text = (p.rxcui)::text)))
+     LEFT JOIN drug_generalized_mv dgm ON (((d.rxcui)::text = (dgm.rxcui)::text)))
+  WHERE ((p.rxaui)::text IN ( SELECT mpl.prod_rxaui
+           FROM mthspl_prod_labeltype mpl
+          WHERE (((mpl.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL'::text) OR ((mpl.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL WITH HIGHLIGHTS'::text))))
+  GROUP BY pmcc.code, pmcc.mkt_cat;]]></expression>
+	<column name="application_code">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="market_catergory">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="product_name">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_code">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="ndcs">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="set_ids">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_substances">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_term_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_drug_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_prescribable_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="unquantified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_unqualified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_setid"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+		<reftable name="rxnr.mthspl_prod_labeler"/>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+		<reftable name="rxnr.mthspl_prod_mktcat_code"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_mktcode_rxprod_drug_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#b0cf5c"
+	 src-table="rxnr.mthspl_mktcode_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_rxprod_drug_v_mthspl_prod_setid" type="reltv" layers="1"
+	 custom-color="#ea0664"
+	 src-table="rxnr.mthspl_mktcode_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_setid"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_rxprod_drug_v_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#35fce8"
+	 src-table="rxnr.mthspl_mktcode_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_rxprod_drug_v_mthspl_prod_labeler" type="reltv" layers="1"
+	 custom-color="#2621ef"
+	 src-table="rxnr.mthspl_mktcode_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeler"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_rxprod_drug_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#fe6d70"
+	 src-table="rxnr.mthspl_mktcode_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_mktcode_rxprod_drug_v_mthspl_prod_mktcat_code" type="reltv" layers="1"
+	 custom-color="#073495"
+	 src-table="rxnr.mthspl_mktcode_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat_code"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_prod_setid_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="820" y="4340"/>
+	<reference>
+		<expression><![CDATA[ SELECT ps.spl_set_id AS set_id,
+    COALESCE(jsonb_agg(DISTINCT ps.prod_rxaui), '[]'::jsonb) AS prod_atom_id,
+    COALESCE(jsonb_agg(DISTINCT p.name), '[]'::jsonb) AS product_name,
+    COALESCE(jsonb_agg(DISTINCT p.code), '[]'::jsonb) AS product_code,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT plt.label_type), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeltype plt
+          WHERE ((plt.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS label_types,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pl.labeler), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeler pl
+          WHERE ((pl.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS labelers,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmcc.code), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat_code pmcc
+          WHERE ((pmcc.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS application_codes,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmc.mkt_cat), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat pmc
+          WHERE ((pmc.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS market_categories,
+    COALESCE(jsonb_agg(DISTINCT uniis_str(ps.prod_rxaui)), '[]'::jsonb) AS prod_uniis,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT jsonb_build_object('ingrType', s.ingr_type, 'rxaui', s.sub_rxaui, 'rxcui', s.sub_rxcui, 'unii', s.sub_unii, 'biologicCode', s.sub_biologic_code, 'name', s.sub_name, 'suppress', s.sub_suppress)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_sub_v s
+          WHERE ((s.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS product_substances,
+    COALESCE(jsonb_agg(DISTINCT d.rxcui) FILTER (WHERE (d.rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_cuis,
+    COALESCE(jsonb_agg(DISTINCT d.tty) FILTER (WHERE (d.tty IS NOT NULL)), '[]'::jsonb) AS rxnorm_term_types,
+    COALESCE(jsonb_agg(DISTINCT d.name) FILTER (WHERE (d.name IS NOT NULL)), '[]'::jsonb) AS rxnorm_drug_names,
+    COALESCE(jsonb_agg(DISTINCT d.prescribable_name) FILTER (WHERE (d.prescribable_name IS NOT NULL)), '[]'::jsonb) AS rxnorm_prescribable_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.non_quantified_rxcui) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.non_quantified_rxcui)) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS unquantified_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_rxcui) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_rxcui)) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_unquantified_rxcui) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_unquantified_rxcui)) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_unqualified_names
+   FROM (((mthspl_prod_setid ps
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (ps.prod_rxaui)::text)))
+     LEFT JOIN drug_v d ON (((d.rxcui)::text = (p.rxcui)::text)))
+     LEFT JOIN drug_generalized_mv dgm ON (((d.rxcui)::text = (dgm.rxcui)::text)))
+  GROUP BY ps.spl_set_id;]]></expression>
+	<column name="set_id">
+		<type name="character varying" length="46"/>
+	</column>
+	<column name="prod_atom_id">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_name">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_code">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="application_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="market_categories">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_substances">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_term_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_drug_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_prescribable_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="unquantified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_unqualified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_setid"/>
+		<reftable name="rxnr.mthspl_prod_labeler"/>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+		<reftable name="rxnr.mthspl_prod_mktcat"/>
+		<reftable name="rxnr.mthspl_prod_mktcat_code"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_prod_setid_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#a8a969"
+	 src-table="rxnr.mthspl_prod_setid_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_setid_v_mthspl_prod_setid" type="reltv" layers="1"
+	 custom-color="#c64f6c"
+	 src-table="rxnr.mthspl_prod_setid_v"
+	 dst-table="rxnr.mthspl_prod_setid"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_setid_v_mthspl_prod_labeler" type="reltv" layers="1"
+	 custom-color="#dc3df2"
+	 src-table="rxnr.mthspl_prod_setid_v"
+	 dst-table="rxnr.mthspl_prod_labeler"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_setid_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#9ffc44"
+	 src-table="rxnr.mthspl_prod_setid_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_setid_v_mthspl_prod_mktcat" type="reltv" layers="1"
+	 custom-color="#24c3aa"
+	 src-table="rxnr.mthspl_prod_setid_v"
+	 dst-table="rxnr.mthspl_prod_mktcat"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_setid_v_mthspl_prod_mktcat_code" type="reltv" layers="1"
+	 custom-color="#6d6b2c"
+	 src-table="rxnr.mthspl_prod_setid_v"
+	 dst-table="rxnr.mthspl_prod_mktcat_code"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_rxprod_setid_drug_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1200" y="4340"/>
+	<reference>
+		<expression><![CDATA[ SELECT ps.spl_set_id AS set_id,
+    COALESCE(jsonb_agg(DISTINCT ps.prod_rxaui), '[]'::jsonb) AS prod_atom_id,
+    COALESCE(jsonb_agg(DISTINCT p.name), '[]'::jsonb) AS product_name,
+    COALESCE(jsonb_agg(DISTINCT p.code), '[]'::jsonb) AS product_code,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT plt.label_type), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeltype plt
+          WHERE ((plt.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS label_types,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pl.labeler), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeler pl
+          WHERE ((pl.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS labelers,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmcc.code), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat_code pmcc
+          WHERE ((pmcc.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS application_codes,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmc.mkt_cat), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat pmc
+          WHERE ((pmc.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS market_categories,
+    COALESCE(jsonb_agg(DISTINCT uniis_str(ps.prod_rxaui)), '[]'::jsonb) AS prod_uniis,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT jsonb_build_object('ingrType', s.ingr_type, 'rxaui', s.sub_rxaui, 'rxcui', s.sub_rxcui, 'unii', s.sub_unii, 'biologicCode', s.sub_biologic_code, 'name', s.sub_name, 'suppress', s.sub_suppress)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_sub_v s
+          WHERE ((s.prod_rxaui)::text IN ( SELECT psi.prod_rxaui
+                   FROM mthspl_prod_setid psi
+                  WHERE ((psi.spl_set_id)::text = (ps.spl_set_id)::text)))) AS product_substances,
+    COALESCE(jsonb_agg(DISTINCT d.rxcui) FILTER (WHERE (d.rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_cuis,
+    COALESCE(jsonb_agg(DISTINCT d.tty) FILTER (WHERE (d.tty IS NOT NULL)), '[]'::jsonb) AS rxnorm_term_types,
+    COALESCE(jsonb_agg(DISTINCT d.name) FILTER (WHERE (d.name IS NOT NULL)), '[]'::jsonb) AS rxnorm_drug_names,
+    COALESCE(jsonb_agg(DISTINCT d.prescribable_name) FILTER (WHERE (d.prescribable_name IS NOT NULL)), '[]'::jsonb) AS rxnorm_prescribable_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.non_quantified_rxcui) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.non_quantified_rxcui)) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS unquantified_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_rxcui) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_rxcui)) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_unquantified_rxcui) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_unquantified_rxcui)) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_unqualified_names
+   FROM (((mthspl_prod_setid ps
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (ps.prod_rxaui)::text)))
+     LEFT JOIN drug_v d ON (((d.rxcui)::text = (p.rxcui)::text)))
+     LEFT JOIN drug_generalized_mv dgm ON (((d.rxcui)::text = (dgm.rxcui)::text)))
+  WHERE ((p.rxaui)::text IN ( SELECT mpl.prod_rxaui
+           FROM mthspl_prod_labeltype mpl
+          WHERE (((mpl.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL'::text) OR ((mpl.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL WITH HIGHLIGHTS'::text))))
+  GROUP BY ps.spl_set_id;]]></expression>
+	<column name="set_id">
+		<type name="character varying" length="46"/>
+	</column>
+	<column name="prod_atom_id">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_name">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_code">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="application_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="market_categories">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_substances">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_term_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_drug_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_prescribable_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="unquantified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_unqualified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_setid"/>
+		<reftable name="rxnr.mthspl_prod_labeler"/>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+		<reftable name="rxnr.mthspl_prod_mktcat"/>
+		<reftable name="rxnr.mthspl_prod_mktcat_code"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_rxprod_setid_drug_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#0e9a5b"
+	 src-table="rxnr.mthspl_rxprod_setid_drug_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_rxprod_setid_drug_v_mthspl_prod_setid" type="reltv" layers="1"
+	 custom-color="#4482d1"
+	 src-table="rxnr.mthspl_rxprod_setid_drug_v"
+	 dst-table="rxnr.mthspl_prod_setid"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_rxprod_setid_drug_v_mthspl_prod_labeler" type="reltv" layers="1"
+	 custom-color="#c8fb68"
+	 src-table="rxnr.mthspl_rxprod_setid_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeler"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_rxprod_setid_drug_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#cfa6d5"
+	 src-table="rxnr.mthspl_rxprod_setid_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_rxprod_setid_drug_v_mthspl_prod_mktcat" type="reltv" layers="1"
+	 custom-color="#1a7ecf"
+	 src-table="rxnr.mthspl_rxprod_setid_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_rxprod_setid_drug_v_mthspl_prod_mktcat_code" type="reltv" layers="1"
+	 custom-color="#ec1584"
+	 src-table="rxnr.mthspl_rxprod_setid_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat_code"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_ndc_prod_drug_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="1600" y="4340"/>
+	<reference>
+		<expression><![CDATA[ SELECT pn.two_part_ndc AS short_ndc,
+    COALESCE(jsonb_agg(DISTINCT pn.full_ndc), '[]'::jsonb) AS full_ndcs,
+    COALESCE(jsonb_agg(DISTINCT p.name), '[]'::jsonb) AS product_name,
+    COALESCE(jsonb_agg(DISTINCT p.code), '[]'::jsonb) AS product_code,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT ps.spl_set_id), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_setid ps
+          WHERE ((ps.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS set_ids,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT plt.label_type), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeltype plt
+          WHERE ((plt.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS label_types,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pl.labeler), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeler pl
+          WHERE ((pl.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS labelers,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmcc.code), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat_code pmcc
+          WHERE ((pmcc.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS application_codes,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmc.mkt_cat), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat pmc
+          WHERE ((pmc.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS market_categories,
+    COALESCE(jsonb_agg(DISTINCT uniis_str(pn.prod_rxaui)), '[]'::jsonb) AS prod_uniis,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT jsonb_build_object('ingrType', s.ingr_type, 'rxaui', s.sub_rxaui, 'rxcui', s.sub_rxcui, 'unii', s.sub_unii, 'biologicCode', s.sub_biologic_code, 'name', s.sub_name, 'suppress', s.sub_suppress)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_sub_v s
+          WHERE ((s.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS product_substances,
+    COALESCE(jsonb_agg(DISTINCT d.rxcui) FILTER (WHERE (d.rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_cuis,
+    COALESCE(jsonb_agg(DISTINCT d.tty) FILTER (WHERE (d.tty IS NOT NULL)), '[]'::jsonb) AS rxnorm_term_types,
+    COALESCE(jsonb_agg(DISTINCT d.name) FILTER (WHERE (d.name IS NOT NULL)), '[]'::jsonb) AS rxnorm_drug_names,
+    COALESCE(jsonb_agg(DISTINCT d.prescribable_name) FILTER (WHERE (d.prescribable_name IS NOT NULL)), '[]'::jsonb) AS rxnorm_prescribable_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.non_quantified_rxcui) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.non_quantified_rxcui)) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS unquantified_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_rxcui) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_rxcui)) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_unquantified_rxcui) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_unquantified_rxcui)) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_unqualified_names
+   FROM (((mthspl_prod_ndc pn
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (pn.prod_rxaui)::text)))
+     LEFT JOIN drug_v d ON (((d.rxcui)::text = (p.rxcui)::text)))
+     LEFT JOIN drug_generalized_mv dgm ON (((d.rxcui)::text = (dgm.rxcui)::text)))
+  GROUP BY pn.two_part_ndc;]]></expression>
+	<column name="short_ndc">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="full_ndcs">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_name">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_code">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="set_ids">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="application_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="market_categories">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_substances">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_term_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_drug_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_prescribable_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="unquantified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_unqualified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_setid"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+		<reftable name="rxnr.mthspl_prod_labeler"/>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+		<reftable name="rxnr.mthspl_prod_mktcat"/>
+		<reftable name="rxnr.mthspl_prod_mktcat_code"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_ndc_prod_drug_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#36e603"
+	 src-table="rxnr.mthspl_ndc_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_prod_drug_v_mthspl_prod_setid" type="reltv" layers="1"
+	 custom-color="#d00b00"
+	 src-table="rxnr.mthspl_ndc_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_setid"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_prod_drug_v_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#c00026"
+	 src-table="rxnr.mthspl_ndc_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_prod_drug_v_mthspl_prod_labeler" type="reltv" layers="1"
+	 custom-color="#4a0f6a"
+	 src-table="rxnr.mthspl_ndc_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeler"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_prod_drug_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#3e6eac"
+	 src-table="rxnr.mthspl_ndc_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_prod_drug_v_mthspl_prod_mktcat" type="reltv" layers="1"
+	 custom-color="#951374"
+	 src-table="rxnr.mthspl_ndc_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_prod_drug_v_mthspl_prod_mktcat_code" type="reltv" layers="1"
+	 custom-color="#d0e4f5"
+	 src-table="rxnr.mthspl_ndc_prod_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat_code"
+	 src-required="false" dst-required="false"/>
+
+<view name="mthspl_ndc_rxprod_drug_v" layers="1" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="rxnr"/>
+	<role name="rxnorm"/>
+	<position x="2000" y="4340"/>
+	<reference>
+		<expression><![CDATA[ SELECT pn.two_part_ndc AS short_ndc,
+    COALESCE(jsonb_agg(DISTINCT pn.full_ndc), '[]'::jsonb) AS full_ndcs,
+    COALESCE(jsonb_agg(DISTINCT p.name), '[]'::jsonb) AS product_name,
+    COALESCE(jsonb_agg(DISTINCT p.code), '[]'::jsonb) AS product_code,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT ps.spl_set_id), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_setid ps
+          WHERE ((ps.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS set_ids,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT plt.label_type), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeltype plt
+          WHERE ((plt.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS label_types,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pl.labeler), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_labeler pl
+          WHERE ((pl.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS labelers,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmcc.code), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat_code pmcc
+          WHERE ((pmcc.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS application_codes,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT pmc.mkt_cat), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_mktcat pmc
+          WHERE ((pmc.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS market_categories,
+    COALESCE(jsonb_agg(DISTINCT uniis_str(pn.prod_rxaui)), '[]'::jsonb) AS prod_uniis,
+    ( SELECT COALESCE(jsonb_agg(DISTINCT jsonb_build_object('ingrType', s.ingr_type, 'rxaui', s.sub_rxaui, 'rxcui', s.sub_rxcui, 'unii', s.sub_unii, 'biologicCode', s.sub_biologic_code, 'name', s.sub_name, 'suppress', s.sub_suppress)), '[]'::jsonb) AS "coalesce"
+           FROM mthspl_prod_sub_v s
+          WHERE ((s.prod_rxaui)::text IN ( SELECT pnc.prod_rxaui
+                   FROM mthspl_prod_ndc pnc
+                  WHERE ((pnc.two_part_ndc)::text = (pn.two_part_ndc)::text)))) AS product_substances,
+    COALESCE(jsonb_agg(DISTINCT d.rxcui) FILTER (WHERE (d.rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_cuis,
+    COALESCE(jsonb_agg(DISTINCT d.tty) FILTER (WHERE (d.tty IS NOT NULL)), '[]'::jsonb) AS rxnorm_term_types,
+    COALESCE(jsonb_agg(DISTINCT d.name) FILTER (WHERE (d.name IS NOT NULL)), '[]'::jsonb) AS rxnorm_drug_names,
+    COALESCE(jsonb_agg(DISTINCT d.prescribable_name) FILTER (WHERE (d.prescribable_name IS NOT NULL)), '[]'::jsonb) AS rxnorm_prescribable_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.non_quantified_rxcui) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.non_quantified_rxcui)) FILTER (WHERE (dgm.non_quantified_rxcui IS NOT NULL)), '[]'::jsonb) AS unquantified_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_rxcui) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_rxcui)) FILTER (WHERE (dgm.generic_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_names,
+    COALESCE(jsonb_agg(DISTINCT dgm.generic_unquantified_rxcui) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS rxnorm_unquantified_generic_cuis,
+    COALESCE(jsonb_agg(DISTINCT drug_name(dgm.generic_unquantified_rxcui)) FILTER (WHERE (dgm.generic_unquantified_rxcui IS NOT NULL)), '[]'::jsonb) AS generic_unqualified_names
+   FROM (((mthspl_prod_ndc pn
+     JOIN mthspl_prod p ON (((p.rxaui)::text = (pn.prod_rxaui)::text)))
+     LEFT JOIN drug_v d ON (((d.rxcui)::text = (p.rxcui)::text)))
+     LEFT JOIN drug_generalized_mv dgm ON (((d.rxcui)::text = (dgm.rxcui)::text)))
+  WHERE ((p.rxaui)::text IN ( SELECT mpl.prod_rxaui
+           FROM mthspl_prod_labeltype mpl
+          WHERE (((mpl.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL'::text) OR ((mpl.label_type)::text = 'HUMAN PRESCRIPTION DRUG LABEL WITH HIGHLIGHTS'::text))))
+  GROUP BY pn.two_part_ndc;]]></expression>
+	<column name="short_ndc">
+		<type name="character varying" length="12"/>
+	</column>
+	<column name="full_ndcs">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_name">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_code">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="set_ids">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="label_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="labelers">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="application_codes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="market_categories">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="prod_uniis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="product_substances">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_term_types">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_drug_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_prescribable_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="unquantified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_names">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="rxnorm_unquantified_generic_cuis">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="generic_unqualified_names">
+		<type name="jsonb" length="0"/>
+	</column>
+		<reftable name="rxnr.mthspl_prod"/>
+		<reftable name="rxnr.mthspl_prod_setid"/>
+		<reftable name="rxnr.mthspl_prod_ndc"/>
+		<reftable name="rxnr.mthspl_prod_labeler"/>
+		<reftable name="rxnr.mthspl_prod_labeltype"/>
+		<reftable name="rxnr.mthspl_prod_mktcat"/>
+		<reftable name="rxnr.mthspl_prod_mktcat_code"/>
+	</reference>
+</view>
+
+<relationship name="rel_mthspl_ndc_rxprod_drug_v_mthspl_prod" type="reltv" layers="1"
+	 custom-color="#1f1530"
+	 src-table="rxnr.mthspl_ndc_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_rxprod_drug_v_mthspl_prod_setid" type="reltv" layers="1"
+	 custom-color="#b8145c"
+	 src-table="rxnr.mthspl_ndc_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_setid"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_rxprod_drug_v_mthspl_prod_ndc" type="reltv" layers="1"
+	 custom-color="#18527d"
+	 src-table="rxnr.mthspl_ndc_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_ndc"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_rxprod_drug_v_mthspl_prod_labeler" type="reltv" layers="1"
+	 custom-color="#e952b1"
+	 src-table="rxnr.mthspl_ndc_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeler"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_rxprod_drug_v_mthspl_prod_labeltype" type="reltv" layers="1"
+	 custom-color="#c675dc"
+	 src-table="rxnr.mthspl_ndc_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_labeltype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_rxprod_drug_v_mthspl_prod_mktcat" type="reltv" layers="1"
+	 custom-color="#0fdcdb"
+	 src-table="rxnr.mthspl_ndc_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_ndc_rxprod_drug_v_mthspl_prod_mktcat_code" type="reltv" layers="1"
+	 custom-color="#aca340"
+	 src-table="rxnr.mthspl_ndc_rxprod_drug_v"
+	 dst-table="rxnr.mthspl_prod_mktcat_code"
+	 src-required="false" dst-required="false"/>
+
+<constraint name="pin_in_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.&quot;in&quot;" table="rxnr.pin">
+	<columns names="in_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="df_dfg_df_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.df" table="rxnr.df_dfg">
+	<columns names="df_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="df_dfg_dfg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.dfg" table="rxnr.df_dfg">
+	<columns names="dfg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdf_df_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.df" table="rxnr.scdf">
+	<columns names="df_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scd_df_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.df" table="rxnr.scd">
+	<columns names="df_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scd_scdf_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdf" table="rxnr.scd">
+	<columns names="scdf_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scd_ingrset_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.ingrset" table="rxnr.scd">
+	<columns names="ingrset_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scd_unquantified_form_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.scd">
+	<columns names="unquantified_form_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bn_reformulated_to_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.bn" table="rxnr.bn">
+	<columns names="reformulated_to_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdf_bn_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.bn" table="rxnr.sbdf">
+	<columns names="bn_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdf_df_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.df" table="rxnr.sbdf">
+	<columns names="df_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdf_scdf_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdf" table="rxnr.sbdf">
+	<columns names="scdf_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbd_scd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.sbd">
+	<columns names="scd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbd_bn_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.bn" table="rxnr.sbd">
+	<columns names="bn_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbd_sbdf_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbdf" table="rxnr.sbd">
+	<columns names="sbdf_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbd_sbdc_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbdc" table="rxnr.sbd">
+	<columns names="sbdc_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbd_df_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.df" table="rxnr.sbd">
+	<columns names="df_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbd_unquantified_form_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbd" table="rxnr.sbd">
+	<columns names="unquantified_form_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="gpck_df_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.df" table="rxnr.gpck">
+	<columns names="df_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bpck_gpck_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.gpck" table="rxnr.bpck">
+	<columns names="gpck_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bpck_df_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.df" table="rxnr.bpck">
+	<columns names="df_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdc_in_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.&quot;in&quot;" table="rxnr.scdc">
+	<columns names="in_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdc_pin_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.pin" table="rxnr.scdc">
+	<columns names="pin_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdg_dfg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.dfg" table="rxnr.scdg">
+	<columns names="dfg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdf_scdg_scdf_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdf" table="rxnr.scdf_scdg">
+	<columns names="scdf_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdf_scdg_scdg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdg" table="rxnr.scdf_scdg">
+	<columns names="scdg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdg_bn_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.bn" table="rxnr.sbdg">
+	<columns names="bn_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdg_dfg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.dfg" table="rxnr.sbdg">
+	<columns names="dfg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdg_scdg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdg" table="rxnr.sbdg">
+	<columns names="scdg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdf_sbdg_sbdf_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbdf" table="rxnr.sbdf_sbdg">
+	<columns names="sbdf_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdf_sbdg_sbdg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbdg" table="rxnr.sbdf_sbdg">
+	<columns names="sbdg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdg_sbd_sbdg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbdg" table="rxnr.sbdg_sbd">
+	<columns names="sbdg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdg_sbd_sbd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbd" table="rxnr.sbdg_sbd">
+	<columns names="sbd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdc_scdc_sbdc_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbdc" table="rxnr.sbdc_scdc">
+	<columns names="sbdc_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbdc_scdc_scdc_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdc" table="rxnr.sbdc_scdc">
+	<columns names="scdc_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scd_sy_scd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.scd_sy">
+	<columns names="scd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sbd_sy_sbd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbd" table="rxnr.sbd_sy">
+	<columns names="sbd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdc_scd_scdc_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdc" table="rxnr.scdc_scd">
+	<columns names="scdc_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdc_scd_scd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.scdc_scd">
+	<columns names="scd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdg_scd_scdg_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scdg" table="rxnr.scdg_scd">
+	<columns names="scdg_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="scdg_scd_scd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.scdg_scd">
+	<columns names="scd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="gpck_scd_gpck_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.gpck" table="rxnr.gpck_scd">
+	<columns names="gpck_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="gpck_scd_scd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.gpck_scd">
+	<columns names="scd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bpck_scd_bpck_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.bpck" table="rxnr.bpck_scd">
+	<columns names="bpck_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bpck_scd_scd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.bpck_scd">
+	<columns names="scd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bpck_sbd_bpck_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.bpck" table="rxnr.bpck_sbd">
+	<columns names="bpck_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bpck_sbd_sbd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbd" table="rxnr.bpck_sbd">
+	<columns names="sbd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_sub_in_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.&quot;in&quot;" table="rxnr.mthspl_sub">
+	<columns names="in_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_sub_pin_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.pin" table="rxnr.mthspl_sub">
+	<columns names="pin_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_scd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.scd" table="rxnr.mthspl_prod">
+	<columns names="scd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_sbd_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.sbd" table="rxnr.mthspl_prod">
+	<columns names="sbd_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_gpck_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.gpck" table="rxnr.mthspl_prod">
+	<columns names="gpck_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_bpck_rxcui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.bpck" table="rxnr.mthspl_prod">
+	<columns names="bpck_rxcui" ref-type="src-columns"/>
+	<columns names="rxcui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_sub_setid_sub_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_sub" table="rxnr.mthspl_sub_setid">
+	<columns names="sub_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_sub_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_sub">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_sub_ingr_type_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_ingr_type" table="rxnr.mthspl_prod_sub">
+	<columns names="ingr_type" ref-type="src-columns"/>
+	<columns names="ingr_type" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_sub_sub_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_sub" table="rxnr.mthspl_prod_sub">
+	<columns names="sub_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_dmspl_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_dmspl">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_setid_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_setid">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_ndc_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_ndc">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_labeler_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_labeler">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_labeltype_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_labeltype">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_mktstat_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_mktstat">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_mkteffth_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_mkteffth">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_mktefftl_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_mktefftl">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_mktcat_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_mktcat">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_mktcat_mkt_cat_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_mktcat" table="rxnr.mthspl_prod_mktcat">
+	<columns names="mkt_cat" ref-type="src-columns"/>
+	<columns names="name" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_mktcat_code_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_mktcat_code">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_mktcat_code_mkt_cat_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_mktcat" table="rxnr.mthspl_prod_mktcat_code">
+	<columns names="mkt_cat" ref-type="src-columns"/>
+	<columns names="name" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_pillattr_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_pillattr">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_pillattr_attr_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_pillattr" table="rxnr.mthspl_prod_pillattr">
+	<columns names="attr" ref-type="src-columns"/>
+	<columns names="attr" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_dcsa_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_dcsa">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="mthspl_prod_nhric_prod_rxaui_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rxnr.mthspl_prod" table="rxnr.mthspl_prod_nhric">
+	<columns names="prod_rxaui" ref-type="src-columns"/>
+	<columns names="rxaui" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_pin_in" type="relfk" layers="0"
+	 custom-color="#e11231"
+	 src-table="rxnr.pin"
+	 dst-table="rxnr.&quot;in&quot;" reference-fk="pin_in_rxcui_fkey"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_df_dfg_df" type="relfk" layers="0"
+	 custom-color="#1b7143"
+	 src-table="rxnr.df_dfg"
+	 dst-table="rxnr.df" reference-fk="df_dfg_df_rxcui_fkey"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-2.15298" y="2.91774"/>
+	</label>
+</relationship>
+
+<relationship name="rel_df_dfg_dfg" type="relfk" layers="0"
+	 custom-color="#56c6e3"
+	 src-table="rxnr.df_dfg"
+	 dst-table="rxnr.dfg" reference-fk="df_dfg_dfg_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdf_df" type="relfk" layers="0"
+	 custom-color="#52ab9c"
+	 src-table="rxnr.scdf"
+	 dst-table="rxnr.df" reference-fk="scdf_df_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scd_df" type="relfk" layers="0"
+	 custom-color="#298885"
+	 src-table="rxnr.scd"
+	 dst-table="rxnr.df" reference-fk="scd_df_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scd_scdf" type="relfk" layers="0"
+	 custom-color="#27acd7"
+	 src-table="rxnr.scd"
+	 dst-table="rxnr.scdf" reference-fk="scd_scdf_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scd_ingrset" type="relfk" layers="0"
+	 custom-color="#8ed0d6"
+	 src-table="rxnr.scd"
+	 dst-table="rxnr.ingrset" reference-fk="scd_ingrset_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scd_scd" type="relfk" layers="0"
+	 custom-color="#bd53cd"
+	 src-table="rxnr.scd"
+	 dst-table="rxnr.scd" reference-fk="scd_unquantified_form_rxcui_fkey"
+	 src-required="false" dst-required="false">
+	<line>
+		<position x="2044" y="961.133"/>
+	<position x="2044" y="857"/>
+	<position x="1914" y="857"/>
+	</line>
+</relationship>
+
+<relationship name="rel_bn_bn" type="relfk" layers="0"
+	 custom-color="#d1b099"
+	 src-table="rxnr.bn"
+	 dst-table="rxnr.bn" reference-fk="bn_reformulated_to_rxcui_fkey"
+	 src-required="false" dst-required="false">
+	<line>
+		<position x="1167.13" y="375.8"/>
+	<position x="1167.13" y="317"/>
+	<position x="1036.09" y="317"/>
+	</line>
+</relationship>
+
+<relationship name="rel_sbdf_bn" type="relfk" layers="0"
+	 custom-color="#ae5abb"
+	 src-table="rxnr.sbdf"
+	 dst-table="rxnr.bn" reference-fk="sbdf_bn_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdf_df" type="relfk" layers="0"
+	 custom-color="#8b038c"
+	 src-table="rxnr.sbdf"
+	 dst-table="rxnr.df" reference-fk="sbdf_df_rxcui_fkey"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_sbdf_scdf" type="relfk" layers="0"
+	 custom-color="#d68411"
+	 src-table="rxnr.sbdf"
+	 dst-table="rxnr.scdf" reference-fk="sbdf_scdf_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbd_scd" type="relfk" layers="0"
+	 custom-color="#186b33"
+	 src-table="rxnr.sbd"
+	 dst-table="rxnr.scd" reference-fk="sbd_scd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbd_bn" type="relfk" layers="0"
+	 custom-color="#8849ca"
+	 src-table="rxnr.sbd"
+	 dst-table="rxnr.bn" reference-fk="sbd_bn_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbd_sbdf" type="relfk" layers="0"
+	 custom-color="#91df5c"
+	 src-table="rxnr.sbd"
+	 dst-table="rxnr.sbdf" reference-fk="sbd_sbdf_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbd_sbdc" type="relfk" layers="0"
+	 custom-color="#0966ff"
+	 src-table="rxnr.sbd"
+	 dst-table="rxnr.sbdc" reference-fk="sbd_sbdc_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbd_df" type="relfk" layers="0"
+	 custom-color="#0f0dfe"
+	 src-table="rxnr.sbd"
+	 dst-table="rxnr.df" reference-fk="sbd_df_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbd_sbd" type="relfk" layers="0"
+	 custom-color="#571adc"
+	 src-table="rxnr.sbd"
+	 dst-table="rxnr.sbd" reference-fk="sbd_unquantified_form_rxcui_fkey"
+	 src-required="false" dst-required="false">
+	<line>
+		<position x="1244" y="970.2"/>
+	<position x="1244" y="857"/>
+	<position x="1114" y="857"/>
+	</line>
+</relationship>
+
+<relationship name="rel_gpck_df" type="relfk" layers="0"
+	 custom-color="#2cfcdf"
+	 src-table="rxnr.gpck"
+	 dst-table="rxnr.df" reference-fk="gpck_df_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_bpck_gpck" type="relfk" layers="0"
+	 custom-color="#d75af5"
+	 src-table="rxnr.bpck"
+	 dst-table="rxnr.gpck" reference-fk="bpck_gpck_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_bpck_df" type="relfk" layers="0"
+	 custom-color="#5805c5"
+	 src-table="rxnr.bpck"
+	 dst-table="rxnr.df" reference-fk="bpck_df_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdc_in" type="relfk" layers="0"
+	 custom-color="#8e4f69"
+	 src-table="rxnr.scdc"
+	 dst-table="rxnr.&quot;in&quot;" reference-fk="scdc_in_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdc_pin" type="relfk" layers="0"
+	 custom-color="#294990"
+	 src-table="rxnr.scdc"
+	 dst-table="rxnr.pin" reference-fk="scdc_pin_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_scdg_dfg" type="relfk" layers="0"
+	 custom-color="#7312c2"
+	 src-table="rxnr.scdg"
+	 dst-table="rxnr.dfg" reference-fk="scdg_dfg_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdf_scdg_scdf" type="relfk" layers="0"
+	 custom-color="#66d75c"
+	 src-table="rxnr.scdf_scdg"
+	 dst-table="rxnr.scdf" reference-fk="scdf_scdg_scdf_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdf_scdg_scdg" type="relfk" layers="0"
+	 custom-color="#c2d909"
+	 src-table="rxnr.scdf_scdg"
+	 dst-table="rxnr.scdg" reference-fk="scdf_scdg_scdg_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdg_bn" type="relfk" layers="0"
+	 custom-color="#ed46ad"
+	 src-table="rxnr.sbdg"
+	 dst-table="rxnr.bn" reference-fk="sbdg_bn_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_sbdg_dfg" type="relfk" layers="0"
+	 custom-color="#9b077a"
+	 src-table="rxnr.sbdg"
+	 dst-table="rxnr.dfg" reference-fk="sbdg_dfg_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdg_scdg" type="relfk" layers="0"
+	 custom-color="#64f035"
+	 src-table="rxnr.sbdg"
+	 dst-table="rxnr.scdg" reference-fk="sbdg_scdg_rxcui_fkey"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_sbdf_sbdg_sbdf" type="relfk" layers="0"
+	 custom-color="#c163bf"
+	 src-table="rxnr.sbdf_sbdg"
+	 dst-table="rxnr.sbdf" reference-fk="sbdf_sbdg_sbdf_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdf_sbdg_sbdg" type="relfk" layers="0"
+	 custom-color="#36ccdf"
+	 src-table="rxnr.sbdf_sbdg"
+	 dst-table="rxnr.sbdg" reference-fk="sbdf_sbdg_sbdg_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdg_sbd_sbdg" type="relfk" layers="0"
+	 custom-color="#da3c56"
+	 src-table="rxnr.sbdg_sbd"
+	 dst-table="rxnr.sbdg" reference-fk="sbdg_sbd_sbdg_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdg_sbd_sbd" type="relfk" layers="0"
+	 custom-color="#ed6687"
+	 src-table="rxnr.sbdg_sbd"
+	 dst-table="rxnr.sbd" reference-fk="sbdg_sbd_sbd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdc_scdc_sbdc" type="relfk" layers="0"
+	 custom-color="#fa028a"
+	 src-table="rxnr.sbdc_scdc"
+	 dst-table="rxnr.sbdc" reference-fk="sbdc_scdc_sbdc_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbdc_scdc_scdc" type="relfk" layers="0"
+	 custom-color="#781309"
+	 src-table="rxnr.sbdc_scdc"
+	 dst-table="rxnr.scdc" reference-fk="sbdc_scdc_scdc_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scd_sy_scd" type="relfk" layers="0"
+	 custom-color="#48143c"
+	 src-table="rxnr.scd_sy"
+	 dst-table="rxnr.scd" reference-fk="scd_sy_scd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_sbd_sy_sbd" type="relfk" layers="0"
+	 custom-color="#b3ce82"
+	 src-table="rxnr.sbd_sy"
+	 dst-table="rxnr.sbd" reference-fk="sbd_sy_sbd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdc_scd_scdc" type="relfk" layers="0"
+	 custom-color="#052116"
+	 src-table="rxnr.scdc_scd"
+	 dst-table="rxnr.scdc" reference-fk="scdc_scd_scdc_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdc_scd_scd" type="relfk" layers="0"
+	 custom-color="#6c3b2f"
+	 src-table="rxnr.scdc_scd"
+	 dst-table="rxnr.scd" reference-fk="scdc_scd_scd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdg_scd_scdg" type="relfk" layers="0"
+	 custom-color="#3e12e3"
+	 src-table="rxnr.scdg_scd"
+	 dst-table="rxnr.scdg" reference-fk="scdg_scd_scdg_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_scdg_scd_scd" type="relfk" layers="0"
+	 custom-color="#c34036"
+	 src-table="rxnr.scdg_scd"
+	 dst-table="rxnr.scd" reference-fk="scdg_scd_scd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_gpck_scd_gpck" type="relfk" layers="0"
+	 custom-color="#706e3e"
+	 src-table="rxnr.gpck_scd"
+	 dst-table="rxnr.gpck" reference-fk="gpck_scd_gpck_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_gpck_scd_scd" type="relfk" layers="0"
+	 custom-color="#f059e2"
+	 src-table="rxnr.gpck_scd"
+	 dst-table="rxnr.scd" reference-fk="gpck_scd_scd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_bpck_scd_bpck" type="relfk" layers="0"
+	 custom-color="#53c99d"
+	 src-table="rxnr.bpck_scd"
+	 dst-table="rxnr.bpck" reference-fk="bpck_scd_bpck_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_bpck_scd_scd" type="relfk" layers="0"
+	 custom-color="#fcafd7"
+	 src-table="rxnr.bpck_scd"
+	 dst-table="rxnr.scd" reference-fk="bpck_scd_scd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_bpck_sbd_bpck" type="relfk" layers="0"
+	 custom-color="#020ae6"
+	 src-table="rxnr.bpck_sbd"
+	 dst-table="rxnr.bpck" reference-fk="bpck_sbd_bpck_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_bpck_sbd_sbd" type="relfk" layers="0"
+	 custom-color="#caa3f2"
+	 src-table="rxnr.bpck_sbd"
+	 dst-table="rxnr.sbd" reference-fk="bpck_sbd_sbd_rxcui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_sub_in" type="relfk" layers="0"
+	 custom-color="#36e34f"
+	 src-table="rxnr.mthspl_sub"
+	 dst-table="rxnr.&quot;in&quot;" reference-fk="mthspl_sub_in_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_sub_pin" type="relfk" layers="0"
+	 custom-color="#fb83af"
+	 src-table="rxnr.mthspl_sub"
+	 dst-table="rxnr.pin" reference-fk="mthspl_sub_pin_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_scd" type="relfk" layers="0"
+	 custom-color="#158c89"
+	 src-table="rxnr.mthspl_prod"
+	 dst-table="rxnr.scd" reference-fk="mthspl_prod_scd_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_sbd" type="relfk" layers="0"
+	 custom-color="#5d6b84"
+	 src-table="rxnr.mthspl_prod"
+	 dst-table="rxnr.sbd" reference-fk="mthspl_prod_sbd_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_gpck" type="relfk" layers="0"
+	 custom-color="#624cc4"
+	 src-table="rxnr.mthspl_prod"
+	 dst-table="rxnr.gpck" reference-fk="mthspl_prod_gpck_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_prod_bpck" type="relfk" layers="0"
+	 custom-color="#02059d"
+	 src-table="rxnr.mthspl_prod"
+	 dst-table="rxnr.bpck" reference-fk="mthspl_prod_bpck_rxcui_fkey"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_mthspl_sub_setid_mthspl_sub" type="relfk" layers="0"
+	 custom-color="#5dee51"
+	 src-table="rxnr.mthspl_sub_setid"
+	 dst-table="rxnr.mthspl_sub" reference-fk="mthspl_sub_setid_sub_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_sub_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#ad0bc7"
+	 src-table="rxnr.mthspl_prod_sub"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_sub_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_sub_mthspl_ingr_type" type="relfk" layers="0"
+	 custom-color="#ac7bab"
+	 src-table="rxnr.mthspl_prod_sub"
+	 dst-table="rxnr.mthspl_ingr_type" reference-fk="mthspl_prod_sub_ingr_type_fkey"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="94.9178" y="-9.40726"/>
+	</label>
+</relationship>
+
+<relationship name="rel_mthspl_prod_sub_mthspl_sub" type="relfk" layers="0"
+	 custom-color="#cc1864"
+	 src-table="rxnr.mthspl_prod_sub"
+	 dst-table="rxnr.mthspl_sub" reference-fk="mthspl_prod_sub_sub_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_dmspl_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#591e7a"
+	 src-table="rxnr.mthspl_prod_dmspl"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_dmspl_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_setid_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#297767"
+	 src-table="rxnr.mthspl_prod_setid"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_setid_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_ndc_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#860e65"
+	 src-table="rxnr.mthspl_prod_ndc"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_ndc_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_labeler_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#f8bba2"
+	 src-table="rxnr.mthspl_prod_labeler"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_labeler_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_labeltype_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#a28139"
+	 src-table="rxnr.mthspl_prod_labeltype"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_labeltype_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_mktstat_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#3de7ed"
+	 src-table="rxnr.mthspl_prod_mktstat"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_mktstat_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_mkteffth_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#4eae75"
+	 src-table="rxnr.mthspl_prod_mkteffth"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_mkteffth_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_mktefftl_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#c3de86"
+	 src-table="rxnr.mthspl_prod_mktefftl"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_mktefftl_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_mktcat_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#07e49a"
+	 src-table="rxnr.mthspl_prod_mktcat"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_mktcat_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_mktcat_mthspl_mktcat" type="relfk" layers="0"
+	 custom-color="#2bd881"
+	 src-table="rxnr.mthspl_prod_mktcat"
+	 dst-table="rxnr.mthspl_mktcat" reference-fk="mthspl_prod_mktcat_mkt_cat_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_mktcat_code_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#40e902"
+	 src-table="rxnr.mthspl_prod_mktcat_code"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_mktcat_code_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_mktcat_code_mthspl_mktcat" type="relfk" layers="0"
+	 custom-color="#73044b"
+	 src-table="rxnr.mthspl_prod_mktcat_code"
+	 dst-table="rxnr.mthspl_mktcat" reference-fk="mthspl_prod_mktcat_code_mkt_cat_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_pillattr_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#502871"
+	 src-table="rxnr.mthspl_prod_pillattr"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_pillattr_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_pillattr_mthspl_pillattr" type="relfk" layers="0"
+	 custom-color="#47726a"
+	 src-table="rxnr.mthspl_prod_pillattr"
+	 dst-table="rxnr.mthspl_pillattr" reference-fk="mthspl_prod_pillattr_attr_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_dcsa_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#bd7256"
+	 src-table="rxnr.mthspl_prod_dcsa"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_dcsa_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_mthspl_prod_nhric_mthspl_prod" type="relfk" layers="0"
+	 custom-color="#239bb1"
+	 src-table="rxnr.mthspl_prod_nhric"
+	 dst-table="rxnr.mthspl_prod" reference-fk="mthspl_prod_nhric_prod_rxaui_fkey"
+	 src-required="false" dst-required="true"/>
+
+</dbmodel>
