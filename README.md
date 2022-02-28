@@ -8,19 +8,40 @@ docker build -t rxnorm-pg .
 
 Download RxNorm data and make a reference to its `rrf` subdirectory:
 
+Bash/Zsh:
 ```
 DATA_DIR="$HOME/Downloads/RxNorm_full_02072022/rrf"
 ```
+PowerShell:
+```
+$DATA_DIR="$HOME/Downloads/RxNorm_full_02072022/rrf"
+```
+
+(Change the location to suite your download path and file name).
 
 Then start the container, mapping the `rrf` data directory into the container:
 
+Bash/Zsh:
 ```
-docker run --name rxnorm-pg -d -v "$DATA_DIR":/rxnorm-rrf -p 127.0.0.1:5432:5432 --shm-size=256MB  rxnorm-pg -c "max_wal_size=3GB"
+docker run -d --name rxnorm-pg -p 127.0.0.1:5432:5432 \
+ -v "$DATA_DIR":/rxnorm-rrf  -v rxnorm-pg-data:/var/lib/postgresql/data \
+ rxnorm-pg -c "max_wal_size=3GB"
 ```
 
-It may take several minutes for the container to initialize the database and to
-finish populating tables from the RxNorm data. You can follow progress by
-watching the container's log:
+PowerShell:
+```
+docker run -d --name rxnorm-pg -p 127.0.0.1:5432:5432 `
+  -v "$($DATA_DIR):/rxnorm-rrf" -v "rxnorm-pg-data:/var/lib/postgresql/data" `
+  rxnorm-pg -c "max_wal_size=3GB"
+```
+
+For the initial loading, it will take several minutes for the container to
+populate tables from the RxNorm data. Subsequent startups will avoid data
+loading, at least so long as the `rxnorm-pg-data` Docker volume is not deleted.
+The bind mount to `rxnorm-rrf` is also not necessary for container startup once
+the `rxnorm-pg-data` volume has been successfully populated by a previous run.
+
+You can follow progress by watching the container's log:
 
 ```
 docker logs rxnorm-pg -f
