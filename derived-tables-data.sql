@@ -1,5 +1,3 @@
--- Temporary-use tables to assist with staged loading.
-
 create table tmp_mthspl_sub as
 select
   c.rxaui,
@@ -19,7 +17,7 @@ create table tmp_scd_ingrset (
   drug_rxcui varchar(12) not null,
   ingrset_rxcui varchar(12) not null,
   ingrset_rxaui varchar(12) not null,
-  ingrset_name varchar(2000) not null,
+  ingrset_name varchar(4000) not null,
   ingrset_suppress varchar(1) not null,
   ingrset_tty varchar(100) not null,
   constraint pk_tmpscdingrset primary key (drug_rxcui, ingrset_rxcui)

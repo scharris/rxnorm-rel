@@ -12,7 +12,7 @@ from rxno.rxnconso d
 where d.rxcui = p_drug_rxcui and d.tty in ('SBD','SCD') and d.sab='RXNORM';
 $$ language sql;
 
-create or replace view drug_v as
+create view drug_v as
 select
   d.rxcui,
   d.rxaui,
@@ -28,7 +28,7 @@ from rxno.rxnconso d
 where d.sab='RXNORM' and d.tty in ('SBD','SCD')
 ;
 
-create or replace view mthspl_prod_sub_v as
+create view mthspl_prod_sub_v as
 select
   ps.prod_rxaui,
   p.rxcui          prod_rxcui,
@@ -49,7 +49,7 @@ join mthspl_prod p on ps.prod_rxaui = p.rxaui
 join mthspl_sub s on s.rxaui = ps.sub_rxaui
 ;
 
-create or replace view drug_generalized_v as
+create view drug_generalized_v as
 select
   d.rxcui,
   (
@@ -86,7 +86,7 @@ select * from drug_generalized_v
 create unique index ix_druggeneral_rxcui on drug_generalized_mv(rxcui);
 
 
-create or replace view mthspl_prod_v as
+create view mthspl_prod_v as
 select
   p.rxaui,
   p.rxcui,
@@ -117,7 +117,7 @@ select
 from mthspl_prod p
 ;
 
-create or replace view mthspl_rxprod_v as
+create view mthspl_rxprod_v as
 select p.*
 from mthspl_prod_v p
 where p.rxaui in (
@@ -127,7 +127,7 @@ where p.rxaui in (
 )
 ;
 
-create or replace view mthspl_mktcode_prod_drug_v as
+create view mthspl_mktcode_prod_drug_v as
 select
   pmcc.code                                                     application_code,
   pmcc.mkt_cat                                                  market_catergory,
@@ -203,7 +203,7 @@ left join drug_generalized_mv dgm on d.rxcui = dgm.rxcui
 group by pmcc.code, pmcc.mkt_cat
 ;
 
-create or replace view mthspl_mktcode_rxprod_drug_v as
+create view mthspl_mktcode_rxprod_drug_v as
 select
   pmcc.code                                                     application_code,
   pmcc.mkt_cat                                                  market_catergory,
@@ -284,7 +284,7 @@ where p.rxaui in (
 group by pmcc.code, pmcc.mkt_cat
 ;
 
-create or replace view mthspl_prod_setid_v as
+create view mthspl_prod_setid_v as
 select
   ps.spl_set_id                                                 set_id,
   coalesce(jsonb_agg(distinct ps.prod_rxaui), '[]'::jsonb)      prod_atom_id,
@@ -365,7 +365,7 @@ left join drug_generalized_mv dgm on d.rxcui = dgm.rxcui
 group by ps.spl_set_id
 ;
 
-create or replace view mthspl_rxprod_setid_drug_v as
+create view mthspl_rxprod_setid_drug_v as
 select
   ps.spl_set_id                                                 set_id,
   coalesce(jsonb_agg(distinct ps.prod_rxaui), '[]'::jsonb)      prod_atom_id,
@@ -451,7 +451,7 @@ where p.rxaui in (
 group by ps.spl_set_id
 ;
 
-create or replace view mthspl_ndc_prod_drug_v as
+create view mthspl_ndc_prod_drug_v as
 select
   pn.two_part_ndc                                               short_ndc,
   coalesce(jsonb_agg(distinct pn.full_ndc), '[]'::jsonb)        full_ndcs,
@@ -534,7 +534,7 @@ left join drug_generalized_mv dgm on d.rxcui = dgm.rxcui
 group by pn.two_part_ndc
 ;
 
-create or replace view mthspl_ndc_rxprod_drug_v as
+create view mthspl_ndc_rxprod_drug_v as
 select
   pn.two_part_ndc                                               short_ndc,
   coalesce(jsonb_agg(distinct pn.full_ndc), '[]'::jsonb)        full_ndcs,

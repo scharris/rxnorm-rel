@@ -10,7 +10,7 @@ from mthspl_sub s
 join pin i on i.rxcui = s.pin_rxcui
 ;
 
-create or replace view scd_unii_v as
+create view scd_unii_v as
 select scd.rxcui as scd_rxcui, iu.unii as unii
 from scdc_scd
 join scd on scdc_scd.scd_rxcui = scd.rxcui
@@ -28,9 +28,9 @@ join pin_unii_v piu on piu.pin_rxcui = i.rxcui
 comment on view scd_unii_v is 'Pairs of SCD/UNII-CUI for both IN and PIN ingredients.';
 
 create view scdf_in_v as
-select distinct scdf_scd.scdf_rxcui, scdc.in_rxcui
-from scdf_scd
-join scdc_scd on scdc_scd.scd_rxcui = scdf_scd.scd_rxcui
+select distinct scd.scdf_rxcui, scdc.in_rxcui
+from scd
+join scdc_scd on scdc_scd.scd_rxcui = scd.rxcui
 join scdc on scdc.rxcui = scdc_scd.scdc_rxcui
 ;
 /* Above view verified to yield same results as rxrel query:

@@ -1,14 +1,14 @@
 create table "in" (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   suppress varchar(1) not null
 );
 
 create table pin (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   in_rxcui varchar(12) not null references "in",
   suppress varchar(1) not null
 );
@@ -17,7 +17,7 @@ create index ix_pin_in on pin(in_rxcui);
 create table ingrset (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   suppress varchar(1) not null,
   tty varchar(100) not null
 );
@@ -25,7 +25,7 @@ create table ingrset (
 create table df (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   origin varchar(500),
   code varchar(500)
 );
@@ -33,7 +33,7 @@ create table df (
 create table dfg (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null
+  name varchar(4000) not null
 );
 
 create table df_dfg (
@@ -46,7 +46,7 @@ create index ix_dfdfg_dfg on df_dfg(dfg_rxcui);
 create table scdf (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   df_rxcui varchar(12) not null references df
 );
 create index ix_scdf_df on scdf(df_rxcui);
@@ -54,7 +54,7 @@ create index ix_scdf_df on scdf(df_rxcui);
 create table scd (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null unique,
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   prescribable_name varchar(2000),
   rxterm_form varchar(100),
   df_rxcui varchar(12) not null references df,
@@ -76,7 +76,7 @@ create index ix_scd_uqform on scd(unquantified_form_rxcui);
 create table bn (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   rxn_cardinality varchar(6),
   reformulated_to_rxcui varchar(12) references bn
 );
@@ -86,7 +86,7 @@ create index ix_bn_reformbn on bn(reformulated_to_rxcui);
 create table sbdf (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   bn_rxcui varchar(12) not null references bn,
   df_rxcui varchar(12) not null references df,
   scdf_rxcui varchar(12) not null references scdf,
@@ -99,13 +99,13 @@ create index ix_sbdf_scdf on sbdf(scdf_rxcui);
 create table sbdc (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null
+  name varchar(4000) not null
 );
 
 create table sbd (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null unique,
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   scd_rxcui varchar(12) not null references scd,
   bn_rxcui varchar(12) not null references bn,
   sbdf_rxcui varchar(12) not null references sbdf,
@@ -131,7 +131,7 @@ create index ix_sbd_uqsbd on sbd(unquantified_form_rxcui);
 create table gpck (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null unique,
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   prescribable_name varchar(2000),
   df_rxcui varchar(12) not null references df,
   suppress varchar(1) not null,
@@ -142,7 +142,7 @@ create index ix_gpck_df on gpck(df_rxcui);
 create table bpck (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null unique,
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   gpck_rxcui varchar(12) not null references gpck,
   prescribable_name varchar(2000),
   df_rxcui varchar(12) not null references df,
@@ -155,11 +155,11 @@ create index ix_bpck_df on bpck(df_rxcui);
 create table scdc (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   in_rxcui varchar(12) not null references "in",
   pin_rxcui varchar(12) references pin,
-  boss_active_ingr_name varchar(2000),
-  boss_active_moi_name varchar(2000),
+  boss_active_ingr_name varchar(4000),
+  boss_active_moi_name varchar(4000),
   boss_source varchar(10),
   rxn_in_expressed_flag varchar(10),
   strength varchar(500),
@@ -174,7 +174,7 @@ create index ix_scdc_pin on scdc(pin_rxcui);
 create table scdg (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   dfg_rxcui varchar(12) not null references dfg
 );
 create index ix_scdg_dfg on scdg(dfg_rxcui);
@@ -189,7 +189,7 @@ create index ix_scdfscdg_scdg on scdf_scdg(scdg_rxcui);
 create table sbdg (
   rxcui varchar(12) primary key,
   rxaui varchar(12) not null,
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   bn_rxcui varchar(12) references bn,
   dfg_rxcui varchar(12) not null references dfg,
   scdg_rxcui varchar(12) not null references scdg,
@@ -224,13 +224,13 @@ create index ix_sbdcscdc_scdc on sbdc_scdc(scdc_rxcui);
 create table et (
   rxcui varchar(12) not null,
   rxaui varchar(12) not null,
-  name varchar(2000) not null unique,
+  name varchar(4000) not null unique,
   constraint pk_doseentrtrm_cuiname primary key (rxcui, name)
 );
 
 create table scd_sy (
   scd_rxcui varchar(12) not null references scd,
-  synonym varchar(2000) not null,
+  synonym varchar(4000) not null,
   sy_rxaui varchar(12) not null,
   constraint pk_scdsy_cuisy primary key (scd_rxcui, synonym)
 );
@@ -238,7 +238,7 @@ create index ix_scdsy_sy on scd_sy(synonym);
 
 create table sbd_sy (
   sbd_rxcui varchar(12) not null references sbd,
-  synonym varchar(2000) not null,
+  synonym varchar(4000) not null,
   sy_rxaui varchar(12) not null,
   constraint pk_sbdsy_cuisy primary key (sbd_rxcui, synonym)
 );
@@ -292,7 +292,7 @@ create table mthspl_sub (
   rxcui varchar(12) not null,
   unii varchar(10),
   biologic_code varchar(18),
-  name varchar(2000) not null,
+  name varchar(4000) not null,
   in_rxcui varchar(12) references "in",
   pin_rxcui varchar(12) references pin,
   suppress varchar(1) not null,
@@ -377,7 +377,7 @@ create index ix_mthsplprodndc_twopartndc on mthspl_prod_ndc(two_part_ndc);
 
 create table mthspl_prod_labeler (
   prod_rxaui varchar(12) not null references mthspl_prod,
-  labeler varchar(2000) not null,
+  labeler varchar(4000) not null,
   primary key (prod_rxaui, labeler)
 );
 

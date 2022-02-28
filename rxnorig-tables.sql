@@ -1,4 +1,10 @@
-DROP TABLE RXNATOMARCHIVE;
+-- Derived from RxNorm Oracle ddl as follows:
+--   Set search path to rxno at top.
+--   Remove DROP statements.
+--   Concatenate RXNormDDL.sql, rxn_index.sql, and add extra indexes section at bottom.
+
+set search_path to rxno;
+
 CREATE TABLE RXNATOMARCHIVE
 (
    RXAUI VARCHAR(8) NOT NULL,
@@ -20,7 +26,6 @@ CREATE TABLE RXNATOMARCHIVE
 )
 ;
 
-DROP  TABLE RXNCONSO;
 CREATE TABLE RXNCONSO
 (
    RXCUI VARCHAR(8) NOT NULL,
@@ -44,7 +49,6 @@ CREATE TABLE RXNCONSO
 )
 ;
 
-DROP TABLE RXNREL;
 CREATE TABLE RXNREL
 (
    RXCUI1    VARCHAR(8) ,
@@ -66,7 +70,6 @@ CREATE TABLE RXNREL
 )
 ;
 
-DROP TABLE RXNSAB;
 CREATE TABLE RXNSAB
 (
    VCUI VARCHAR (8),
@@ -97,7 +100,6 @@ CREATE TABLE RXNSAB
 )
 ;
 
-DROP TABLE RXNSAT;
 CREATE TABLE RXNSAT
 (
    RXCUI VARCHAR(8),
@@ -116,7 +118,6 @@ CREATE TABLE RXNSAT
 )
 ;
 
-DROP TABLE RXNSTY;
 CREATE TABLE RXNSTY
 (
    RXCUI VARCHAR(8) NOT NULL,
@@ -128,7 +129,6 @@ CREATE TABLE RXNSTY
 )
 ;
 
-DROP TABLE RXNDOC;
 CREATE TABLE RXNDOC (
     DOCKEY	VARCHAR(50) NOT NULL,
     VALUE	VARCHAR(1000),
@@ -137,7 +137,6 @@ CREATE TABLE RXNDOC (
 )
 ;
 
-DROP  TABLE RXNCUICHANGES;
 CREATE TABLE RXNCUICHANGES
 (
       RXAUI VARCHAR(8),
@@ -150,9 +149,8 @@ CREATE TABLE RXNCUICHANGES
 )
 ;
 
-DROP TABLE rxncui;
- 
- CREATE TABLE rxncui (
+
+CREATE TABLE rxncui (
  cui1 VARCHAR(8),
  ver_start VARCHAR(40),
  ver_end   VARCHAR(40),
@@ -161,4 +159,23 @@ DROP TABLE rxncui;
 )
 ;
 
- 
+
+create index x_rxnconso_str on rxnconso(str);
+create index x_rxnconso_rxcui on rxnconso(rxcui);
+create index x_rxnconso_tty on rxnconso(tty);
+create index x_rxnconso_code on rxnconso(code);
+create index x_rxnsat_rxcui on rxnsat(rxcui);
+create index x_rxnsat_atv on rxnsat(atv);
+create index x_rxnsat_atn on rxnsat(atn);
+create index x_rxnrel_rxcui1 on rxnrel(rxcui1);
+create index x_rxnrel_rxcui2 on rxnrel(rxcui2);
+create index x_rxnrel_rela on rxnrel(rela);
+create index x_rxnatomarchive_rxaui on rxnatomarchive(rxaui);
+create index x_rxnatomarchive_rxcui on rxnatomarchive(rxcui);
+create index x_rxnatomarchive_merged_to on rxnatomarchive(merged_to_rxcui);
+
+-- These extra indexes are added in addition to those provided by RXNORM to facilitate common queries.
+create index rxnsat_sabaui_ix on rxnsat(sab, rxaui);
+create index rxnsat_aui_ix on rxnsat(rxaui);
+create index rxnconso_sabaui_ix on rxnconso(sab, rxaui);
+create index rxnrel_sab_ix on rxnrel(sab);
